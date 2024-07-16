@@ -1,3 +1,8 @@
+VERSIÓN 1.0.1
+Se modifica el diagramado de las tablas de pacienteregistro, para que pueda acceder
+de forma mas estetica en un movil.
+
+
 
 VERSIÓN 1.0.0
 Se inicia el  versionado del sistema hazidcp,

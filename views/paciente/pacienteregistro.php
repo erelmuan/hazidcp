@@ -53,6 +53,8 @@ CrudAsset::register($this);
                              ])
                         ],
                     ],
+                    //Adaptacion para moviles
+                    'responsiveWrap' => false,
                     'panel' => [
                         'type' => 'primary',
                         'heading'=> 'Ingresar datos al filtro y presionar la tecla ENTER',

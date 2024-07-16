@@ -198,10 +198,13 @@ CrudAsset::register($this);
                                'toolbar'=> [
 
                                ],
+                               //Adaptacion para moviles
+                               'responsiveWrap' => false,
                                'panel' => [
                                    'type' => 'primary',
                                    'heading'=> false,
                                ]
+
                            ])?>
                          </div>
                      </div>
@@ -231,6 +234,8 @@ CrudAsset::register($this);
                              'toolbar'=> [
 
                              ],
+                             //Adaptacion para moviles
+                             'responsiveWrap' => false,
                              'panel' => [
                                  'type' => 'primary',
                                  'heading'=> false,

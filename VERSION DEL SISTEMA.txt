@@ -1,3 +1,6 @@
+VERSIÓN 1.0.3
+Correccion en la columna de respuesta de la tabla atencion
+
 VERSIÓN 1.0.2
 Se agregar los filtros faltantes, ademas se cambiar el placeholder en los filtros "si" y "no"
 

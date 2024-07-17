@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 use app\models\Servicio;
 use app\models\Tipoconsulta;
+use app\models\Respuesta;
 
 use kartik\grid\GridView;
 
@@ -76,7 +77,7 @@ return [
         'value'=> 'respuesta.descripcion',
         'label'=>'Respuesta',
 
-        'filter'=>ArrayHelper::map(Tipoconsulta::find()->all(), 'id','descripcion'),
+        'filter'=>ArrayHelper::map(Respuesta::find()->all(), 'id','descripcion'),
         'filterType' => GridView::FILTER_SELECT2,
         'filterWidgetOptions' => [
             'options' => ['prompt' => ''],

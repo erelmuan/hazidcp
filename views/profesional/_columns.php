@@ -32,7 +32,8 @@ return [
 
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'especialidad.nombre',
+        'attribute'=>'especialidad',
+        'value'=>'especialidad.nombre',
         'label'=>'Especialidad',
 
     ],
@@ -44,6 +45,10 @@ return [
        'falseLabel' => 'No',
         'trueIcon' => '<span class="label label-success" ">Sí</span>',
         'falseIcon' => '<span class="label label-danger" ">No</span>',
+        'filterInputOptions' => [
+          'class' => 'form-control',
+           'prompt' => 'Seleccionar'
+        ],
      ],
     [
         'class' => 'kartik\grid\ActionColumn',

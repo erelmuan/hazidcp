@@ -12,6 +12,8 @@ use app\models\SolicitudDiagnostico;
  */
 class SolicitudDiagnosticoSearch extends SolicitudDiagnostico
 {
+  public $codigo;
+  public $descripcion;
     /**
      * @inheritdoc
      */
@@ -20,7 +22,7 @@ class SolicitudDiagnosticoSearch extends SolicitudDiagnostico
         return [
             [['id', 'id_diagnostico', 'id_solicitud'], 'integer'],
             [['principal', 'diag_internacion'], 'boolean'],
-            [['registro_usuario', 'registro_tiempo'], 'safe'],
+            [['registro_usuario', 'registro_tiempo' ,'codigo','descripcion'], 'safe'],
         ];
     }
 
@@ -42,7 +44,7 @@ class SolicitudDiagnosticoSearch extends SolicitudDiagnostico
      */
     public function search($params,$id_solicitud)
     {
-        $query = SolicitudDiagnostico::find()
+        $query = SolicitudDiagnostico::find()->innerJoinWith('diagnostico', true)
         ->andWhere(['id_solicitud'=>$id_solicitud]);
 
         $dataProvider = new ActiveDataProvider([
@@ -65,8 +67,10 @@ class SolicitudDiagnosticoSearch extends SolicitudDiagnostico
             'registro_tiempo' => $this->registro_tiempo,
             'diag_internacion' => $this->diag_internacion,
         ]);
+        $query->andFilterWhere(['ilike', 'codigo', $this->codigo]);
+        $query->andFilterWhere(['ilike', 'descripcion', $this->descripcion]);
 
-        $query->andFilterWhere(['like', 'registro_usuario', $this->registro_usuario]);
+        $query->andFilterWhere(['ilike', 'registro_usuario', $this->registro_usuario]);
 
         return $dataProvider;
     }

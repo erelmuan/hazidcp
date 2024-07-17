@@ -194,11 +194,11 @@ use kartik\detail\DetailView;
               'label'=> 'Tipo internacion',
             ],
             [
-                'value'=> date("d/m/Y H:i:s",strtotime($internacion->fechahoraingreso)) ,
+              'value' => ($internacion->fechahoraingreso)?date("d/m/Y H:i:s",strtotime($internacion->fechahoraingreso)):'(no definido)',
                 'label'=> 'Fecha y hora de INGRESO',
              ],
              [
-                 'value'=> date("d/m/Y H:i:s",strtotime($internacion->fechahoraegreso)) ,
+                 'value' => ($internacion->fechahoraegreso)?date("d/m/Y H:i:s",strtotime($internacion->fechahoraegreso)):'(no definido)',
                  'label'=> 'Fecha y hora de EGRESO',
               ],
 

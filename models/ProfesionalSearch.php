@@ -19,6 +19,7 @@ class ProfesionalSearch extends Profesional
   public $numdocumento;
   public $especialidad;
 
+
     /**
      * @inheritdoc
      */
@@ -31,7 +32,7 @@ class ProfesionalSearch extends Profesional
           [['matricula',],'required','on'=>'search'],
           [['visualizar'], 'boolean'],
           // SCESNARIO //
-            [['id', 'id_prestador', 'id_especialidad'], 'integer'],
+            [['id', 'id_prestador'], 'integer'],
         ];
     }
 
@@ -53,7 +54,9 @@ class ProfesionalSearch extends Profesional
      */
     public function search($params, $mostrar=NULL)
     {
-        $query = Profesional::find()->JoinWith('prestador', true);
+        $query = Profesional::find()->JoinWith('prestador', true)
+        ->JoinWith('especialidad');
+
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -75,7 +78,6 @@ class ProfesionalSearch extends Profesional
         $query->andFilterWhere([
             'id' => $this->id,
             'id_prestador' => $this->id_prestador,
-            'id_especialidad' => $this->id_especialidad,
             'visualizar' => $visualizar,
         ]);
 
@@ -83,7 +85,7 @@ class ProfesionalSearch extends Profesional
             ->andFilterWhere(['ilike', 'nombre', $this->nombre])
             ->andFilterWhere(['ilike', 'numdocumento', $this->numdocumento])
             ->andFilterWhere(['ilike', 'tipodoc.documento', $this->tipodoc])
-            ->andFilterWhere(['ilike', 'especialidad', $this->especialidad])
+            ->andFilterWhere(['ilike', 'especialidad.nombre', $this->especialidad])
             ->andFilterWhere(['ilike', 'matricula', $this->matricula]);
 
         return $dataProvider;

@@ -10,15 +10,19 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'id',
+        'width' => '100px',
+
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'label'=>'codigo',
+        'attribute'=>'codigo',
         'value'=>'diagnostico.codigo'
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'label'=>'Descripción',
+        'attribute'=>'descripcion',
         'value'=>'diagnostico.descripcion',
     ],
 
@@ -30,6 +34,10 @@ return [
      'falseLabel' => 'No',
       'trueIcon' => '<span class="label label-success" ">Sí</span>',
       'falseIcon' => '<span class="label label-danger" ">No</span>',
+      'filterInputOptions' => [
+        'class' => 'form-control',
+         'prompt' => 'Seleccionar'
+      ],
    ],
 
     [
@@ -39,6 +47,10 @@ return [
          'falseLabel' => 'No',
           'trueIcon' => '<span class="label label-success" ">Sí</span>',
           'falseIcon' => '<span class="label label-danger" ">No</span>',
+          'filterInputOptions' => [
+            'class' => 'form-control',
+             'prompt' => 'Seleccionar'
+          ],
      ],
     [
         'class' => 'kartik\grid\ActionColumn',

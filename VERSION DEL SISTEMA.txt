@@ -1,3 +1,6 @@
+VERSIÓN 1.0.4
+Se modifica el orden las columnas en atencion y se agregan columnas en profesionales desde la solicitud
+
 VERSIÓN 1.0.3
 Correccion en la columna de respuesta de la tabla atencion
 

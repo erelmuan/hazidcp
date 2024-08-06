@@ -15,34 +15,7 @@ return [
         'width' => '30px',
     ],
 
-      [
-          'attribute' => 'id_servicio',
-          'value'=> 'servicio.nombre',
-          'label'=>'Servicio',
 
-          'filter'=>ArrayHelper::map(Servicio::find()->all(), 'id','nombre'),
-          'filterType' => GridView::FILTER_SELECT2,
-          'filterWidgetOptions' => [
-              'options' => ['prompt' => ''],
-              'pluginOptions' => ['allowClear' => true],
-          ],
-      ],
-
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'usuario',
-        'width' => '170px',
-        'value' => function($model) {
-          return Html::a( $model->usuario->usuario, ['usuario/view',"id"=> $model->usuario->id]
-
-            ,[    'class' => 'text-success','role'=>'modal-remote','title'=>'Datos del usuario','data-toggle'=>'tooltip']
-           );
-
-         }
-         ,
-         'filterInputOptions' => ['class' => 'form-control','placeholder' => 'Nombre de usuario'],
-         'format' => 'raw',
-    ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'fechahora',
@@ -51,49 +24,74 @@ return [
         },
 
       ],
+
+            [
+                'attribute' => 'id_servicio',
+                'value'=> 'servicio.nombre',
+                'label'=>'Servicio',
+
+                'filter'=>ArrayHelper::map(Servicio::find()->all(), 'id','nombre'),
+                'filterType' => GridView::FILTER_SELECT2,
+                'filterWidgetOptions' => [
+                    'options' => ['prompt' => ''],
+                    'pluginOptions' => ['allowClear' => true],
+                ],
+            ],
+      [
+          'attribute' => 'id_tipoconsulta',
+          'value'=> 'tipoconsulta.descripcion',
+          'label'=>'Tipo de consulta',
+
+          'filter'=>ArrayHelper::map(Tipoconsulta::find()->all(), 'id','descripcion'),
+          'filterType' => GridView::FILTER_SELECT2,
+          'filterWidgetOptions' => [
+              'options' => ['prompt' => ''],
+              'pluginOptions' => ['allowClear' => true],
+          ],
+      ],
+
+      [
+          'attribute' => 'id_respuesta',
+          'value'=> 'respuesta.descripcion',
+          'label'=>'Respuesta',
+
+          'filter'=>ArrayHelper::map(Respuesta::find()->all(), 'id','descripcion'),
+          'filterType' => GridView::FILTER_SELECT2,
+          'filterWidgetOptions' => [
+              'options' => ['prompt' => ''],
+              'pluginOptions' => ['allowClear' => true],
+          ],
+      ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'personaasesorada',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'detalles',
+        'attribute'=>'vinculo',
     ],
-    [
-        'attribute' => 'id_tipoconsulta',
-        'value'=> 'tipoconsulta.descripcion',
-        'label'=>'Tipo de consulta',
-
-        'filter'=>ArrayHelper::map(Tipoconsulta::find()->all(), 'id','descripcion'),
-        'filterType' => GridView::FILTER_SELECT2,
-        'filterWidgetOptions' => [
-            'options' => ['prompt' => ''],
-            'pluginOptions' => ['allowClear' => true],
-        ],
-    ],
-
-    [
-        'attribute' => 'id_respuesta',
-        'value'=> 'respuesta.descripcion',
-        'label'=>'Respuesta',
-
-        'filter'=>ArrayHelper::map(Respuesta::find()->all(), 'id','descripcion'),
-        'filterType' => GridView::FILTER_SELECT2,
-        'filterWidgetOptions' => [
-            'options' => ['prompt' => ''],
-            'pluginOptions' => ['allowClear' => true],
-        ],
-    ],
-
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'paciente',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'vinculo',
+        'attribute'=>'detalles',
     ],
 
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'usuario',
+        'width' => '170px',
+        'value' => function($model) {
+          return Html::a( $model->usuario->usuario, ['usuario/view',"id"=> $model->usuario->id]
+            ,[    'class' => 'text-success','role'=>'modal-remote','title'=>'Datos del usuario','data-toggle'=>'tooltip']
+           );
+         }
+         ,
+         'filterInputOptions' => ['class' => 'form-control','placeholder' => 'Nombre de usuario'],
+         'format' => 'raw',
+    ],
     [
           'class' => 'kartik\grid\ActionColumn',
           'dropdown' => false,

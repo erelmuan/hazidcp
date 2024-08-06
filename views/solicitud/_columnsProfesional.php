@@ -27,6 +27,13 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'matricula',
     ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'especialidad',
+        'value'=>'especialidad.nombre',
+        'label'=>'Especialidad',
+
+    ],
 
 
 ];

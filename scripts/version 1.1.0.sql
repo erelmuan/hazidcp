@@ -53,3 +53,37 @@ ADD COLUMN id_detalle INTEGER;
 ALTER TABLE internacion
 ADD CONSTRAINT internacion_id_detalle_fkey
 FOREIGN KEY (id_detalle) REFERENCES detalle(id);
+
+
+-- SEQUENCE: public.plantillareunionfamiliar_id_seq
+
+-- DROP SEQUENCE public.plantillareunionfamiliar_id_seq;
+
+CREATE SEQUENCE public.plantillareunionfamiliar_id_seq
+    INCREMENT 1
+    START 1
+    MINVALUE 1
+    MAXVALUE 2147483647
+    CACHE 1;
+
+ALTER SEQUENCE public.plantillareunionfamiliar_id_seq
+    OWNER TO postgres;
+
+
+    -- Table: public.plantillareunionfamiliar
+
+    -- DROP TABLE public.plantillareunionfamiliar;
+
+    CREATE TABLE public.plantillareunionfamiliar
+    (
+        id integer NOT NULL DEFAULT nextval('plantillareunionfamiliar_id_seq'::regclass),
+        codigo character varying COLLATE pg_catalog."default" NOT NULL,
+        descripcion text COLLATE pg_catalog."default" NOT NULL,
+        CONSTRAINT plantillareunionfamiliar_pkey PRIMARY KEY (id),
+        CONSTRAINT plantillareunionfamiliar_codigo_key UNIQUE (codigo)
+    )
+
+    TABLESPACE pg_default;
+
+    ALTER TABLE public.plantillareunionfamiliar
+        OWNER to postgres;

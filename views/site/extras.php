@@ -272,7 +272,7 @@ $this->title = 'Extras';
           <div class="tile-stats verde">
             <div class="icon"><i class="fa fa-map-marker"></i>
             </div>
-            <div class="count"><?=$cantidadProvincia ?></div>
+            <div class="count"><?=$cantidadDetalle ?></div>
 
             <h3>DETALLES</h3>
             <p>ABM de las detalles tipo de egreso.</p>

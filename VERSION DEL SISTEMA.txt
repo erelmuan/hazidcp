@@ -1,3 +1,6 @@
+VERSION 1.1.1
+SE modifica el script que permitia no perder el scroll cuando se desplegaba el segundo modal.
+
 VERSION 1.1.0
 Debido a cambios significativos se salte la version de la 1.0.4 a la 1.1.0
 

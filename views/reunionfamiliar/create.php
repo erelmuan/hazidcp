@@ -10,7 +10,9 @@ use yii\helpers\Html;
 <div class="reunionfamiliar-create">
     <?= $this->render('_form', [
         'model' => $model,
-        'id_solicitud' => $id_solicitud
+        'id_solicitud' => $id_solicitud,
+        'search' => $search,
+        'provider' => $provider,
 
     ]) ?>
 </div>

@@ -36,9 +36,6 @@ return [
         'urlCreator' => function($action, $model, $key, $index) {
                 return Url::to([$action,'id'=>$key]);
         },
-
-
-
     ],
 
 ];

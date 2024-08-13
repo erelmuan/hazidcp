@@ -2,13 +2,13 @@
 
 use yii\helpers\Html;
 
-
 /* @var $this yii\web\View */
-/* @var $model app\models\Respuesta */
-
+/* @var $model app\models\Plantillareunionfamiliar */
 ?>
-<div class="respuesta-create">
+<div class="plantillareunionfamiliar-update">
+
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
+
 </div>

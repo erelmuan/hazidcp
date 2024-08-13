@@ -3,19 +3,17 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Respuesta */
+/* @var $model app\models\Plantillareunionfamiliar */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="respuesta-form">
-  <? if($model->asociadoaAtencion()){    ?>
-    <span style="color:red">   No se puede realizar la modificación de este registro. <b>(Vinculado a uno o mas atenciones)</b>.</span>
-  <? } ?>
+<div class="plantillareunionfamiliar-form">
+
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'descripcion')->textInput(['readOnly'=>$model->asociadoaAtencion()]) ?>
+    <?= $form->field($model, 'codigo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'detalles')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'descripcion')->textarea(['rows' => 6]) ?>
 
 
 	<?php if (!Yii::$app->request->isAjax){ ?>

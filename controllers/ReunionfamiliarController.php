@@ -11,7 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
-
+use app\models\PlantillareunionfamiliarSearch;
 /**
  * ReunionfamiliarController implements the CRUD actions for Reunionfamiliar model.
  */
@@ -71,7 +71,9 @@ class ReunionfamiliarController extends Controller {
     {
         $request = Yii::$app->request;
         $model = new Reunionfamiliar();
-
+        $searchPRF = new PlantillareunionfamiliarSearch();
+        $dataProviderPRF = $searchPRF->search(Yii::$app->request->queryParams);
+        $dataProviderPRF->pagination->pageSize = 7;
         if($request->isAjax){
             /*
             *   Process for ajax request
@@ -82,7 +84,9 @@ class ReunionfamiliarController extends Controller {
                     'title'=> "Crear nueva reunion familiar",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
-                        'id_solicitud' => $id_solicitud
+                        'id_solicitud' => $id_solicitud,
+                        'search' => $searchPRF,
+                        'provider' => $dataProviderPRF,
                     ]),
                     'footer'=> Html::button('Cerrar',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Guardar',['class'=>'btn btn-primary','type'=>"submit"])
@@ -94,7 +98,7 @@ class ReunionfamiliarController extends Controller {
                     'title'=> "Crear nueva reunión familiar",
                     'content'=>'<span class="text-success">Exito al crear reunión familiar</span>',
                     'footer'=> Html::button('Cerrar',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Crear más',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                            Html::a('Crear más',['create', 'id_solicitud'=>$id_solicitud],['class'=>'btn btn-primary','role'=>'modal-remote'])
 
                 ];
             }else{
@@ -102,7 +106,9 @@ class ReunionfamiliarController extends Controller {
                     'title'=> "Crear nueva reunión familiar",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
-                        'id_solicitud' => $id_solicitud
+                        'id_solicitud' => $id_solicitud,
+                        'search' => $searchPRF,
+                        'provider' => $dataProviderPRF,
 
                     ]),
                     'footer'=> Html::button('Cerrar',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
@@ -119,7 +125,9 @@ class ReunionfamiliarController extends Controller {
             } else {
                 return $this->render('create', [
                     'model' => $model,
-                    'id_solicitud' => $id_solicitud
+                    'id_solicitud' => $id_solicitud,
+                    'search' => $searchPRF,
+                    'provider' => $dataProviderPRF,
 
                 ]);
             }
@@ -138,7 +146,9 @@ class ReunionfamiliarController extends Controller {
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-
+        $searchPRF = new PlantillareunionfamiliarSearch();
+        $dataProviderPRF = $searchPRF->search(Yii::$app->request->queryParams);
+        $dataProviderPRF->pagination->pageSize = 7;
         if($request->isAjax){
             /*
             *   Process for ajax request
@@ -149,7 +159,9 @@ class ReunionfamiliarController extends Controller {
                     'title'=> "Actualizar reunion familiar #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
-                        'id_solicitud' => $model->id_solicitud
+                        'id_solicitud' => $model->id_solicitud,
+                        'search' => $searchPRF,
+                        'provider' => $dataProviderPRF,
 
                     ]),
                     'footer'=> Html::button('Cerrar',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
@@ -171,7 +183,9 @@ class ReunionfamiliarController extends Controller {
                     'title'=> "Actualizar reunion familiar #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
-                        'id_solicitud' => $model->id_solicitud
+                        'id_solicitud' => $model->id_solicitud,
+                        'search' => $searchPRF,
+                        'provider' => $dataProviderPRF,
                     ]),
                     'footer'=> Html::button('Cerrar',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                                 Html::button('Guardar',['class'=>'btn btn-primary','type'=>"submit"])
@@ -186,7 +200,9 @@ class ReunionfamiliarController extends Controller {
             } else {
                 return $this->render('update', [
                     'model' => $model,
-                    'id_solicitud' => $model->id_solicitud
+                    'id_solicitud' => $model->id_solicitud,
+                    'search' => $searchPRF,
+                    'provider' => $dataProviderPRF,
                 ]);
             }
         }

@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Respuesta;
+use app\models\Plantillareunionfamiliar;
 
 /**
- * RespuestaSearch represents the model behind the search form about `app\models\Respuesta`.
+ * PlantillareunionfamiliarSearch represents the model behind the search form about `app\models\Plantillareunionfamiliar`.
  */
-class RespuestaSearch extends Respuesta
+class PlantillareunionfamiliarSearch extends Plantillareunionfamiliar
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class RespuestaSearch extends Respuesta
     {
         return [
             [['id'], 'integer'],
-            [['descripcion', 'detalles'], 'safe'],
+            [['codigo', 'descripcion'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class RespuestaSearch extends Respuesta
      */
     public function search($params)
     {
-        $query = Respuesta::find();
+        $query = Plantillareunionfamiliar::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,8 +59,8 @@ class RespuestaSearch extends Respuesta
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['ilike', 'descripcion', $this->descripcion])
-            ->andFilterWhere(['ilike', 'detalles', $this->detalles]);
+        $query->andFilterWhere(['like', 'codigo', $this->codigo])
+            ->andFilterWhere(['like', 'descripcion', $this->descripcion]);
 
         return $dataProvider;
     }

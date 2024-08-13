@@ -40,10 +40,7 @@ use yii\helpers\Html;
             'value' => $model->tipoconsulta ? $model->tipoconsulta->descripcion : 'No definido',
 
             ],
-            ['class'=>'\kartik\grid\DataColumn',
-              'label'=>'Respuesta',
-              'value' => $model->respuesta ? $model->respuesta->descripcion : 'No definido',
-            ],
+            'respuesta',
             'paciente',
             'vinculo',
             ['class'=>'\kartik\grid\DataColumn',

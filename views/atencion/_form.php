@@ -6,7 +6,6 @@ use kartik\widgets\TimePicker;
 use nex\chosen\Chosen;
 use yii\helpers\ArrayHelper;
 use app\models\Servicio;
-use app\models\Respuesta;
 use app\models\Tipoconsulta;
 use app\models\Solicitud;
 
@@ -15,7 +14,6 @@ use app\models\Solicitud;
 /* @var $model app\models\Atencion */
 /* @var $form yii\widgets\ActiveForm */
 $mapservicio = ArrayHelper::map(Servicio::find()->all() , 'id',  'nombre'  );
-$maprespuesta = ArrayHelper::map(Respuesta::find()->all() , 'id',  'descripcion'  );
 $maptipoconsulta = ArrayHelper::map(Tipoconsulta::find()->all() , 'id',  'descripcion'  );
 
 
@@ -63,17 +61,8 @@ $maptipoconsulta = ArrayHelper::map(Tipoconsulta::find()->all() , 'id',  'descri
        ],])->label("Tipo de consulta");
     ?>
 
-    <?=$form->field($model, 'id_respuesta')->widget(
-      Chosen::className(), [
-       'items' => $maprespuesta,
-        'placeholder' => 'Selecciona una opción',
-       'clientOptions' => [
-         'language' => 'es',
-         'rtl'=> true,
-           'search_contains' => true,
-           'single_backstroke_delete' => false,
-       ],])->label("Respuesta");
-    ?>
+    <?= $form->field($model, 'respuesta')->textInput(); ?>
+
     <?= $form->field($model, 'personaasesorada')->textInput(); ?>
 
     <?= $form->field($model, 'vinculo')->textInput() ?>

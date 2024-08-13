@@ -1,3 +1,13 @@
+VERSION 1.1.0
+Debido a cambios significativos se salte la version de la 1.0.4 a la 1.1.0
+
+- Se agrego una opción más para detallar el tipo de alta, en este caso se la denomino DETALLE.
+  - Como resultado se agrega en las tablas extras el acceso para cargar estos detalles.
+- eliminacion de la tabla respuesta, en consecuencia se cambia el id_respuesta de la tabla
+ATENCION por el campo RESPUESTA.
+- Se incopora el uso de plantillas en la reunion familiar.
+- Eliminacion de scripts innecesarios  del sis anterior.
+
 VERSIÓN 1.0.4
 Se modifica el orden las columnas en atencion y se agregan columnas en profesionales desde la solicitud
 

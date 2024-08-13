@@ -51,16 +51,9 @@ return [
       ],
 
       [
-          'attribute' => 'id_respuesta',
-          'value'=> 'respuesta.descripcion',
-          'label'=>'Respuesta',
+        'class'=>'\kartik\grid\DataColumn',
+          'attribute' => 'respuesta',
 
-          'filter'=>ArrayHelper::map(Respuesta::find()->all(), 'id','descripcion'),
-          'filterType' => GridView::FILTER_SELECT2,
-          'filterWidgetOptions' => [
-              'options' => ['prompt' => ''],
-              'pluginOptions' => ['allowClear' => true],
-          ],
       ],
     [
         'class'=>'\kartik\grid\DataColumn',

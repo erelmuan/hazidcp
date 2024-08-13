@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Respuesta;
-use app\models\RespuestaSearch;
+use app\models\Detalle;
+use app\models\DetalleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,19 +12,19 @@ use \yii\web\Response;
 use yii\helpers\Html;
 
 /**
- * RespuestaController implements the CRUD actions for Respuesta model.
+ * DetalleController implements the CRUD actions for Detalle model.
  */
-class RespuestaController extends Controller{
+class DetalleController extends Controller
+{
   // behaviors heredado class CONTOLLER (accesos seguridad)
 
-
     /**
-     * Lists all Respuesta models.
+     * Lists all Detalle models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new RespuestaSearch();
+        $searchModel = new DetalleSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -35,7 +35,7 @@ class RespuestaController extends Controller{
 
 
     /**
-     * Displays a single Respuesta model.
+     * Displays a single Detalle model.
      * @param integer $id
      * @return mixed
      */
@@ -45,7 +45,7 @@ class RespuestaController extends Controller{
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "Respuesta #".$id,
+                    'title'=> "Detalle #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -60,7 +60,7 @@ class RespuestaController extends Controller{
     }
 
     /**
-     * Creates a new Respuesta model.
+     * Creates a new Detalle model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -68,7 +68,7 @@ class RespuestaController extends Controller{
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Respuesta();
+        $model = new Detalle();
 
         if($request->isAjax){
             /*
@@ -77,7 +77,7 @@ class RespuestaController extends Controller{
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Crear nueva respuesta",
+                    'title'=> "Crear nuevo detalle",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -88,15 +88,15 @@ class RespuestaController extends Controller{
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Crear nueva respuesta",
-                    'content'=>'<span class="text-success">Éxito al crear respuesta</span>',
+                    'title'=> "Crear nuevo detalle",
+                    'content'=>'<span class="text-success">Éxito al crear detalle</span>',
                     'footer'=> Html::button('Cerrar',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Crear más',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
 
                 ];
             }else{
                 return [
-                    'title'=> "Crear nueva respuesta",
+                    'title'=> "Crear nuevo detalle",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -121,7 +121,7 @@ class RespuestaController extends Controller{
     }
 
     /**
-     * Updates an existing Respuesta model.
+     * Updates an existing Detalle model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -139,7 +139,7 @@ class RespuestaController extends Controller{
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Actualizar Respuesta #".$id,
+                    'title'=> "Actualizar Detalle #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -149,7 +149,7 @@ class RespuestaController extends Controller{
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Respuesta #".$id,
+                    'title'=> "Detalle #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -158,7 +158,7 @@ class RespuestaController extends Controller{
                 ];
             }else{
                  return [
-                    'title'=> "Actualizar Respuesta #".$id,
+                    'title'=> "Actualizar Detalle #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -179,18 +179,20 @@ class RespuestaController extends Controller{
             }
         }
     }
+
     //delete hereda de Controller
 
+
     /**
-     * Finds the Respuesta model based on its primary key value.
+     * Finds the Detalle model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Respuesta the loaded model
+     * @return Detalle the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Respuesta::findOne($id)) !== null) {
+        if (($model = Detalle::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

@@ -20,9 +20,9 @@ class AtencionSearch extends Atencion
     public function rules()
     {
         return [
-            [['id', 'id_usuario', 'id_tipoconsulta', 'id_respuesta',  'id_servicio'], 'integer'],
+            [['id', 'id_usuario', 'id_tipoconsulta',   'id_servicio'], 'integer'],
             ['fechahora', 'validateDateFormat'],
-            [['fechahora', 'usuario', 'personaasesorada', 'detalles', 'vinculo','paciente'], 'safe'],
+            [['fechahora', 'usuario', 'personaasesorada','respuesta' ,'detalles', 'vinculo','paciente'], 'safe'],
         ];
     }
 
@@ -70,7 +70,6 @@ class AtencionSearch extends Atencion
             'id' => $this->id,
             'id_usuario' => $this->id_usuario,
             'id_tipoconsulta' => $this->id_tipoconsulta,
-            'id_respuesta' => $this->id_respuesta,
             'id_servicio' => $this->id_servicio,
         ]);
         // Convertir el formato de la fecha a Y-m-d para la consulta
@@ -84,6 +83,7 @@ class AtencionSearch extends Atencion
             ->andFilterWhere(['ilike', 'detalles', $this->detalles])
             ->andFilterWhere(['ilike', 'vinculo', $this->vinculo])
             ->andFilterWhere(['ilike', 'usuario', $this->usuario])
+            ->andFilterWhere(['ilike', 'respuesta', $this->respuesta])
 		         ->andFilterWhere(['ilike', 'paciente', $this->paciente]);
 
         return $dataProvider;

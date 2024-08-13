@@ -5,11 +5,14 @@ namespace app\controllers;
 use Yii;
 use app\models\Internacion;
 use app\models\InternacionSearch;
+use app\models\Detalle;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 /**
  * InternacionController implements the CRUD actions for Internacion model.
@@ -179,7 +182,30 @@ class InternacionController extends Controller{
 
 
     }
-
+    public function actionSubcat() {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $id_tipoegreso = $parents[0];
+                //obtener todas las localidades por el id de la organismo
+                $Arraydetalles = Detalle::findall(['id_tipoegreso' => $id_tipoegreso]);
+                ArrayHelper::multisort($Arrayareas, ['descripcion'], [SORT_ASC]);
+                $i = 0;
+                $detalles = [];
+                foreach ($Arraydetalles as $key => $value) {
+                    $detalles[$i] = array(
+                        'id' => $value['id'],
+                        'name' => $value['descripcion']
+                    );
+                    $i = $i + 1;
+                }
+                $out = [['id' => '<sub-cat-id-1>', 'name' => '<sub-cat-name1>'], ['id' => '<sub-cat_id_2>', 'name' => '<sub-cat-name2>']];
+                return Json::encode(['output' => $detalles]);
+            }
+        }
+        echo Json::encode(['output' => '', 'selected' => '']);
+    }
 
     /**
      * Finds the Internacion model based on its primary key value.

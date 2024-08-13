@@ -7,6 +7,9 @@ use app\models\Tipoingreso;
 use app\models\Tipointernacion;
 use nex\chosen\Chosen;
 use kartik\datecontrol\DateControl;
+use kartik\depdrop\DepDrop;
+use app\models\Detalle;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Internacion */
@@ -45,7 +48,7 @@ $maptipointernacion = ArrayHelper::map(Tipointernacion::find()->all() , 'id',  '
        ])->label("Fecha/Hora de ingreso"); ?>
      <?   } ?>
      <? if ($tipo=='fechahoraingreso') { ?>
-    <?=$form->field($model, 'id_tipoingreso')->widget(
+    <? echo $form->field($model, 'id_tipoingreso')->widget(
       Chosen::className(), [
        'items' => $maptipoingreso,
         'placeholder' => 'Selecciona una opción',
@@ -55,6 +58,7 @@ $maptipointernacion = ArrayHelper::map(Tipointernacion::find()->all() , 'id',  '
            'search_contains' => true,
            'single_backstroke_delete' => false,
        ],]);?>
+
      <?   } ?>
      <? if ($tipo=='fechahoraegreso') { ?>
        <?= $form->field($model, 'fechahoraegreso')->widget(DateControl::classname(), [
@@ -69,7 +73,7 @@ $maptipointernacion = ArrayHelper::map(Tipointernacion::find()->all() , 'id',  '
        ])->label("Fecha/Hora de egreso"); ?>
      <?   } ?>
      <? if ($tipo=='fechahoraegreso') { ?>
-      <?=$form->field($model, 'id_tipoegreso')->widget(
+      <? echo $form->field($model, 'id_tipoegreso')->widget(
         Chosen::className(), [
          'items' => $maptipoegreso,
           'placeholder' => 'Selecciona una opción',
@@ -78,8 +82,23 @@ $maptipointernacion = ArrayHelper::map(Tipointernacion::find()->all() , 'id',  '
            'rtl'=> true,
              'search_contains' => true,
              'single_backstroke_delete' => false,
-         ],]);?>
-       <?   } ?>
+         ],
+        'options' => ['id' => 'internacion-id_tipoegreso'], // Agregar esto asegura que el ID coincida.
+       ]);
+         $mapdetalle = ArrayHelper::map(Detalle::Find()->where(['id_tipoegreso' => $model->id_tipoegreso])->all() , 'id', 'descripcion');
+
+          echo $form->field($model, 'id_detalle')->widget(DepDrop::classname(), [
+              'data'=>$mapdetalle,
+              'options'=>['id'=>'id_detalle'],
+              'select2Options'=>['pluginOptions'=>['allowClear'=>true]],
+              'pluginOptions'=>[
+                'depends'=>['internacion-id_tipoegreso'],
+                 'placeholder'=>'Seleccionar detalle...',
+                 'url'=>Url::to(['/internacion/subcat'])
+              ]
+          ])->label('Detalle');
+
+         } ?>
 
     <?= $form->field($model, 'id_solicitud')->hiddenInput(['value'=>$model->id_solicitud])->label(false) ?>
 

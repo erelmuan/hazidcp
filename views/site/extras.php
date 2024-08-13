@@ -201,14 +201,14 @@ $this->title = 'Extras';
       </div>
     </div>
     </a>
-      <a href=<?=Yii::$app->homeUrl."respuesta"; ?>>
+      <a href=<?=Yii::$app->homeUrl."plantillareunionfamiliar"; ?>>
       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="tile-stats verde">
-            <div class="icon"><i class="fas fa-reply"></i>
+            <div class="icon"><i class="icon-pastealt"></i>
             </div>
-            <div class="count"><?=$cantidadRespuestas?></div>
-            <h3> RESPUESTAS</h3>
-            <p>ABM Respuestas.</p>
+            <div class="count"><?=$cantidadplantillareunionfamiliares?></div>
+            <h3> PLANTILLA R. FLIAR</h3>
+            <p>ABM Plantillas.</p>
         </div>
       </div>
       </a>
@@ -267,6 +267,19 @@ $this->title = 'Extras';
           </div>
         </div>
         </a>
+        <a href=<?=Yii::$app->homeUrl."detalle"; ?>>
+        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <div class="tile-stats verde">
+            <div class="icon"><i class="fa fa-map-marker"></i>
+            </div>
+            <div class="count"><?=$cantidadProvincia ?></div>
+
+            <h3>DETALLES</h3>
+            <p>ABM de las detalles tipo de egreso.</p>
+          </div>
+        </div>
+      </a>
+
     </div>
 
   </div>

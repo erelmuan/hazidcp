@@ -184,6 +184,10 @@ use kartik\detail\DetailView;
                 'value' => ($internacion->tipoegreso)?$internacion->tipoegreso->descripcion:'(no definido)',
                 'label' => 'Tipo de EGRESO',
                ],
+              [
+               'value' => ($internacion->detalle)?$internacion->detalle->descripcion:'(no definido)',
+               'label' => 'Detalle',
+              ],
          ],
       ],
 

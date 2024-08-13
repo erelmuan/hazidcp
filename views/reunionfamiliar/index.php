@@ -12,7 +12,7 @@ use yii\widgets\MaskedInput;
 /* @var $searchModel app\models\ReunionfamiliarSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Reunionfamiliars';
+$this->title = 'Reunion familiares';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
@@ -27,6 +27,7 @@ CrudAsset::register($this);
     'model_solicitud' => $model_solicitud,
 ]) ?>
   </div>
+
 <div class="reunionfamiliar-index">
     <div id="ajaxCrudDatatable">
         <?=GridView::widget([
@@ -62,6 +63,9 @@ CrudAsset::register($this);
 
 <?php Modal::begin([
     "id"=>"ajaxCrudModal",
+    'size' => Modal::SIZE_LARGE,
+    'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
+    'class' => 'bg-gray',
     "footer"=>"",// always need it for jquery plugin
 ])?>
 <?php Modal::end(); ?>

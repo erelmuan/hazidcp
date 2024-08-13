@@ -82,7 +82,7 @@ class ProfesionalSearch extends Profesional
         ]);
 
         $query->andFilterWhere(['ilike', 'apellido', $this->apellido])
-            ->andFilterWhere(['ilike', 'nombre', $this->nombre])
+            ->andFilterWhere(['ilike', 'prestador.nombre', $this->nombre])
             ->andFilterWhere(['ilike', 'numdocumento', $this->numdocumento])
             ->andFilterWhere(['ilike', 'tipodoc.documento', $this->tipodoc])
             ->andFilterWhere(['ilike', 'especialidad.nombre', $this->especialidad])

@@ -14,6 +14,9 @@ use Yii;
  * @property string $fechahoraegreso
  * @property int $id_tipoegreso
  * @property int $id_solicitud
+ * @property int $id_detalle
+ * @property Detalle $detalle
+
  *
  * @property Evolucionindicacion[] $evolucionindicacions
  * @property Solicitud $solicitud
@@ -48,8 +51,8 @@ class Internacion extends \yii\db\ActiveRecord
     {
         return [
             [['id_tipointernacion', 'id_tipoingreso', 'id_solicitud','fechahoraingreso'], 'required'],
-            [['id_tipointernacion', 'id_tipoingreso', 'id_tipoegreso', 'id_solicitud'], 'default', 'value' => null],
-            [['id_tipointernacion', 'id_tipoingreso', 'id_tipoegreso', 'id_solicitud'], 'integer'],
+            [['id_tipointernacion', 'id_tipoingreso', 'id_tipoegreso', 'id_solicitud','id_detalle'], 'default', 'value' => null],
+            [['id_tipointernacion', 'id_tipoingreso', 'id_tipoegreso', 'id_solicitud','id_detalle'], 'integer'],
             [['fechahoraingreso', 'fechahoraegreso'], 'safe'],
             [['id_solicitud'], 'unique'],
             ['fechahoraegreso', 'compare', 'compareAttribute' => 'fechahoraingreso', 'operator' => '>=', 'message' => 'La fecha de egreso debe ser posterior o igual a la fecha de ingreso.'],
@@ -59,7 +62,7 @@ class Internacion extends \yii\db\ActiveRecord
             [['id_tipoegreso'], 'exist', 'skipOnError' => true, 'targetClass' => Tipoegreso::className(), 'targetAttribute' => ['id_tipoegreso' => 'id']],
             [['id_tipoingreso'], 'exist', 'skipOnError' => true, 'targetClass' => Tipoingreso::className(), 'targetAttribute' => ['id_tipoingreso' => 'id']],
             [['id_tipointernacion'], 'exist', 'skipOnError' => true, 'targetClass' => Tipointernacion::className(), 'targetAttribute' => ['id_tipointernacion' => 'id']],
-
+            [['id_detalle'], 'exist', 'skipOnError' => true, 'targetClass' => Detalle::className(), 'targetAttribute' => ['id_detalle' => 'id']],
        ];
     }
 
@@ -102,6 +105,7 @@ class Internacion extends \yii\db\ActiveRecord
             'fechahoraegreso' => 'Fecha/hora de egreso',
             'id_tipoegreso' => 'Tipo de egreso',
             'id_solicitud' => 'Id Solicitud',
+            'id_detalle' => 'Id Detalle',
         ];
     }
 
@@ -144,4 +148,12 @@ class Internacion extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Tipointernacion::className(), ['id' => 'id_tipointernacion']);
     }
+
+    /**
+	   * @return \yii\db\ActiveQuery
+		 */ 
+	  public function getDetalle()
+    {
+	      return $this->hasOne(Detalle::className(), ['id' => 'id_detalle']);
+		 }
 }

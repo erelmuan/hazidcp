@@ -3,6 +3,7 @@ use yii\helpers\Url;
 
 return [
 
+
     [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
@@ -15,9 +16,12 @@ return [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'descripcion',
     ],
+
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'detalles',
+        'label'=>'Tipo de egreso',
+        'attribute'=>'tipoegreso',
+        'value'=>'tipoegreso.descripcion',
     ],
     [
         'class' => 'kartik\grid\ActionColumn',

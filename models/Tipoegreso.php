@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $descripcion
  * @property Internacion[] $internacions
+ * @property Detalle[] $detalles
  */
  use app\components\behaviors\AuditoriaBehaviors;
 
@@ -66,5 +67,14 @@ class Tipoegreso extends \yii\db\ActiveRecord
      return $this->getInternacions()
       ->exists();
      }
+
+     /**
+      * @return \yii\db\ActiveQuery
+      */
+   public function getDetalles()
+   {
+       return $this->hasMany(Detalle::className(), ['id_tipoegreso' => 'id']);
+   }
+
 
 }

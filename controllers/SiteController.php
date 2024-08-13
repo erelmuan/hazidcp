@@ -31,7 +31,7 @@ use app\models\Atencion;
 use app\models\Prestador;
 use app\models\Tipoacceso;
 use app\models\Tipoconsulta;
-use app\models\Respuesta;
+use app\models\Plantillareunionfamiliar;
 
 use app\models\Tipodom;
 use app\models\Tipotel;
@@ -268,7 +268,7 @@ class SiteController extends Controller {
         $cantidadServicios = Servicio::find()->count();
         $cantidadSolicitudesAnuladas = Solicitud::find()->where(['=','id_estado',4])->count();
         $cantidadTipoConsultas = Tipoconsulta::find()->count();
-        $cantidadRespuestas = Respuesta::find()->count();
+        $cantidadplantillareunionfamiliares = Plantillareunionfamiliar::find()->count();
 
         $cantidadTipoDomicilios = Tipodom::find()->count();
         $cantidadTipoTelefonos = Tipotel::find()->count();
@@ -294,7 +294,7 @@ class SiteController extends Controller {
          'cantidadServicios' =>$cantidadServicios,
          'cantidadSolicitudesAnuladas' =>$cantidadSolicitudesAnuladas,
          'cantidadTipoConsultas' => $cantidadTipoConsultas,
-         'cantidadRespuestas' =>$cantidadRespuestas,
+         'cantidadplantillareunionfamiliares' =>$cantidadplantillareunionfamiliares,
          'cantidadTipoDomicilios' =>$cantidadTipoDomicilios,
          'cantidadTipoTelefonos' =>$cantidadTipoTelefonos,
          'cantidadTipoEgresos' =>$cantidadTipoEgresos,

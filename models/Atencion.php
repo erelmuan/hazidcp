@@ -13,13 +13,12 @@ use Yii;
  * @property string $personaasesorada
  * @property string $detalles
  * @property int $id_tipoconsulta
- * @property int $id_respuesta
+ * @property string $respuesta
  * @property string $paciente
  * @property string $vinculo
  * @property int $id_servicio
  *
  * @property Paciente $paciente
- * @property Respuesta $respuesta
  * @property Servicio $servicio
  * @property Tipoconsulta $tipoconsulta
  * @property Usuario $usuario
@@ -50,11 +49,10 @@ class Atencion extends \yii\db\ActiveRecord
     {
         return [
             [['id_usuario', 'fechahora', 'personaasesorada'], 'required'],
-            [['id_usuario', 'id_tipoconsulta', 'id_respuesta',  'id_servicio'], 'default', 'value' => null],
-            [['id_usuario', 'id_tipoconsulta', 'id_respuesta',  'id_servicio'], 'integer'],
+            [['id_usuario', 'id_tipoconsulta', 'respuesta',  'id_servicio'], 'default', 'value' => null],
+            [['id_usuario', 'id_tipoconsulta',  'id_servicio'], 'integer'],
             [['fechahora'], 'safe'],
-            [['personaasesorada', 'detalles', 'vinculo', 'paciente'], 'string'],
-            [['id_respuesta'], 'exist', 'skipOnError' => true, 'targetClass' => Respuesta::className(), 'targetAttribute' => ['id_respuesta' => 'id']],
+            [['personaasesorada', 'detalles', 'vinculo', 'paciente', 'respuesta'], 'string'],
             [['id_servicio'], 'exist', 'skipOnError' => true, 'targetClass' => Servicio::className(), 'targetAttribute' => ['id_servicio' => 'id']],
             [['id_tipoconsulta'], 'exist', 'skipOnError' => true, 'targetClass' => Tipoconsulta::className(), 'targetAttribute' => ['id_tipoconsulta' => 'id']],
             [['id_usuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['id_usuario' => 'id']],
@@ -73,7 +71,7 @@ class Atencion extends \yii\db\ActiveRecord
             'personaasesorada' => 'Persona asesorada',
             'detalles' => 'Detalles',
             'id_tipoconsulta' => 'Id Tipoconsulta',
-            'id_respuesta' => 'Id Respuesta',
+            'respuesta' => 'Respuesta',
             'paciente' => 'Paciente',
             'vinculo' => 'Vinculo',
             'id_servicio' => 'Id Servicio',
@@ -82,13 +80,6 @@ class Atencion extends \yii\db\ActiveRecord
 
 
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRespuesta()
-    {
-        return $this->hasOne(Respuesta::className(), ['id' => 'id_respuesta']);
-    }
 
     /**
      * @return \yii\db\ActiveQuery

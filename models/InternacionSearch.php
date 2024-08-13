@@ -18,7 +18,7 @@ class InternacionSearch extends Internacion
     public function rules()
     {
         return [
-            [['id', 'id_tipointernacion', 'id_tipoingreso', 'id_tipoegreso', 'id_solicitud'], 'integer'],
+            [['id', 'id_tipointernacion', 'id_tipoingreso', 'id_tipoegreso', 'id_solicitud', 'id_detalle'], 'integer'],
             [['fechahoraingreso', 'fechahoraegreso'], 'safe'],
         ];
     }
@@ -63,6 +63,7 @@ class InternacionSearch extends Internacion
             'fechahoraegreso' => $this->fechahoraegreso,
             'id_tipoegreso' => $this->id_tipoegreso,
             'id_solicitud' => $this->id_solicitud,
+            'id_detalle' => $this->id_detalle,
         ]);
 
         return $dataProvider;

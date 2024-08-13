@@ -60,11 +60,12 @@ CrudAsset::register($this);
            'columns'=>6,
            'attributes'=>[
            'tipo_de_internacion'=>['label'=>'Tipo de internación', 'options'=>['value'=>($model_solicitud->internacion)?$model_solicitud->internacion->tipointernacion->descripcion:'(No definido)','readonly'=> true ,'url' => '#' ],'columnOptions'=>['class'=>'col-lg-2',],],
-             'fecha_ingreso'=>['label'=>'Fecha/hora de ingreso', 'options'=>['value'=>($model_solicitud->internacion)?date("d/m/Y H:i:s",strtotime($model_solicitud->internacion->fechahoraingreso)):'(No definido)', 'placeholder'=>'Fecha ingreso...','readonly'=> true],'columnOptions'=>['class'=>'col-lg-3']],
-             'tipo_ingreso'=>['label'=>'Tipo de ingreso', 'options'=>['value'=>($model_solicitud->internacion)?$model_solicitud->internacion->tipoingreso->descripcion:'(No definido)', 'placeholder'=>'Edad...','readonly'=> true],'columnOptions'=>['class'=>'col-sm-2']],
-             'fecha_egreso'=>['label'=> 'Fecha/hora de egreso' ,'options'=>['value'=>isset($model_solicitud->internacion->fechahoraegreso)? date("d/m/Y H:i:s",strtotime($model_solicitud->internacion->fechahoraegreso)):'(No definido)', 'readonly'=> true ,'url' => '#' ],'columnOptions'=>['class'=>'col-lg-3',],],
-            'tipo_egreso'=>['label'=>'Tipo de egreso', 'options'=>['value'=>isset($model_solicitud->internacion->tipoegreso)?$model_solicitud->internacion->tipoegreso->descripcion:'(No definido)', 'placeholder'=>'Edad...','readonly'=> true],'columnOptions'=>['class'=>'col-sm-2']],
-           'id_solicitud'=>['type'=>Form::INPUT_HIDDEN, 'columnOptions'=>['colspan'=>0], 'options'=>['value'=>$model_solicitud->id ]],
+             'fecha_ingreso'=>['label'=>'Fecha/hora de ingreso', 'options'=>['value'=>($model_solicitud->internacion)?date("d/m/Y H:i:s",strtotime($model_solicitud->internacion->fechahoraingreso)):'(No definido)', 'placeholder'=>'Fecha ingreso...','readonly'=> true],'columnOptions'=>['class'=>'col-lg-2']],
+             'tipo_ingreso'=>['label'=>'Tipo de ingreso', 'options'=>['value'=>($model_solicitud->internacion)?$model_solicitud->internacion->tipoingreso->descripcion:'(No definido)', 'placeholder'=>'Tipo de ingreso...','readonly'=> true],'columnOptions'=>['class'=>'col-sm-2']],
+             'fecha_egreso'=>['label'=> 'Fecha/hora de egreso' ,'options'=>['value'=>isset($model_solicitud->internacion->fechahoraegreso)? date("d/m/Y H:i:s",strtotime($model_solicitud->internacion->fechahoraegreso)):'(No definido)', 'readonly'=> true ,'url' => '#' ],'columnOptions'=>['class'=>'col-lg-2',],],
+            'tipo_egreso'=>['label'=>'Tipo de egreso', 'options'=>['value'=>isset($model_solicitud->internacion->tipoegreso)?$model_solicitud->internacion->tipoegreso->descripcion:'(No definido)', 'placeholder'=>'Tipo de egreso...','readonly'=> true],'columnOptions'=>['class'=>'col-sm-2']],
+            'detalle'=>['label'=>'Detalle', 'options'=>['value'=>isset($model_solicitud->internacion->detalle)?$model_solicitud->internacion->detalle->descripcion:'(No definido)', 'placeholder'=>'Detalle...','readonly'=> true],'columnOptions'=>['class'=>'col-sm-2']],
+             'id_solicitud'=>['type'=>Form::INPUT_HIDDEN, 'columnOptions'=>['colspan'=>0], 'options'=>['value'=>$model_solicitud->id ]],
           ]
       ]);
 

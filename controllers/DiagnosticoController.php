@@ -88,9 +88,9 @@ class DiagnosticoController extends Controller{
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
                     'title'=> "Crear nuevo diagnostico",
-                    'content'=>'<span class="text-success">Éxito al crear barrio</span>',
+                    'content'=>'<span class="text-success">Éxito al crear diagnostico</span>',
                     'footer'=> Html::button('Cerrar',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Create More',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                            Html::a('Crear más',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
 
                 ];
             }else{

@@ -1,3 +1,8 @@
+VERSION 1.1.2
+Cambio en la consulta del metodo solicitudvigente() del modelo paciente,para devolver solo 
+las solicitudes que no esten anuladas y que si tienen una internacion asociada, que la misma
+no tenga fecha de egreso.
+
 VERSION 1.1.1
 SE modifica el script que permitia no perder el scroll cuando se desplegaba el segundo modal.
 

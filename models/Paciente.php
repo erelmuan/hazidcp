@@ -185,9 +185,10 @@ class Paciente extends \yii\db\ActiveRecord
         $solicitud = Solicitud::find()
             ->alias('s')
             ->innerJoin('paciente p', 'p.id = s.id_paciente') // Asegúrate de que la relación es correcta
-            ->leftJoin('internacion i', 'i.id_solicitud = s.id AND i.fechahoraegreso IS NULL') // Usar leftJoin para incluir solicitudes sin internación
+            ->leftJoin('internacion i', 'i.id_solicitud = s.id')
             ->where(['s.id_paciente' => $this->id])
             ->andWhere(['and','id_estado <> 4 ' ])
+            ->andWhere(['and','  i.fechahoraegreso IS NULL' ])
             ->one(); // Obtener un solo registro
 
         return $solicitud !== null; // Devolvemos true si se encontró la solicitud, false en caso contrario

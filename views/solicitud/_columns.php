@@ -27,11 +27,17 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'label'=>'Profesional',
         'value' => function($model) {
           return $model->profesional->apellido .', '.$model->profesional->nombre;
         },
          'label'=>'Profesional solicitante',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
+        'value' => function($model) {
+          return $model->profesionalAcargo->apellido .', '.$model->profesionalAcargo->nombre;
+        },
+         'label'=>'Profesional a cargo',
     ],
 
     [

@@ -45,6 +45,11 @@ use kartik\detail\DetailView;
           ],
           [
             'class'=>'\kartik\grid\DataColumn',
+            'label'=>'Historia clinica',
+            'value' => $model->paciente->hc,
+          ],
+          [
+            'class'=>'\kartik\grid\DataColumn',
             'attribute' => 'fechasolicitud',
             'format' => ['date', 'd/M/Y'],
          ],
@@ -76,7 +81,11 @@ use kartik\detail\DetailView;
               'label'=>'Profesional solicitante',
               'value' =>  $model->profesional->apellido .', '.$model->profesional->nombre,
           ],
-
+          [
+              'class'=>'\kartik\grid\DataColumn',
+              'label'=>'Profesional a cargo',
+              'value' =>  $model->profesionalAcargo->apellido .', '.$model->profesionalAcargo->nombre,
+          ],
           [
               'class'=>'\kartik\grid\DataColumn',
               'attribute'=>'observacion',

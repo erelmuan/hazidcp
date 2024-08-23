@@ -24,6 +24,8 @@ class SolicitudSearch extends Solicitud
   public $id_tipodoc; // Propiedad para paciente.id_tipodoc
   public $fecha_desde;
   public $fecha_hasta;
+  public $profesional_acargo;
+
     /**
      * @inheritdoc
      */
@@ -36,7 +38,7 @@ class SolicitudSearch extends Solicitud
             [['id', 'id_paciente',  'id_profesional',  'id_servicio', 'id_estado','id_procedencia','num_documento'], 'integer'],
             ['fechasolicitud', 'date', 'format' => 'dd/MM/yyyy'],
             [[ 'fecha_desde','fecha_hasta','observacion'], 'safe'],
-            [['paciente','profesional','procedencia','servicio','estado' ,'num_documento','direccion', 'barrio'], 'safe'],
+            [['paciente','profesional','profesional_acargo','procedencia','servicio','estado' ,'num_documento','direccion', 'barrio'], 'safe'],
             [['id_tipodoc'], 'safe'],
 
         ];

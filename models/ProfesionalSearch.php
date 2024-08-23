@@ -69,9 +69,11 @@ class ProfesionalSearch extends Profesional
           // $query->where('0=1');
           return $dataProvider;
       }
-        if ($mostrar=="SOLO_VER_PROFESIONALES_ELEGIBLES")
+        if ($mostrar=="SOLO_VER_PROFESIONALES_SOLICITANTES")
         {
             $visualizar=true;
+        }elseif ($mostrar=="SOLO_VER_PROFESIONALES_A_CARGO") {
+            $visualizar=false;
         }else {
             $visualizar=$this->visualizar;
         }

@@ -62,12 +62,13 @@ class PacienteSearch extends Paciente
             'id_nacionalidad' => $this->id_nacionalidad,
             'id_tipodoc' => $this->id_tipodoc,
             'id' => $this->id,
+            'hc' => $this->hc,
+
         ]);
 
         $query->andFilterWhere(['ilike', 'nombre', $this->nombre])
             ->andFilterWhere(['ilike', 'sexo', $this->sexo])
             ->andFilterWhere(['ilike', 'apellido', $this->apellido])
-            ->andFilterWhere(['like', 'hc', $this->hc])
             ->andFilterWhere(['ilike', 'numdocumento', $this->numdocumento]);
 
         return $dataProvider;

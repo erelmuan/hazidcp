@@ -97,8 +97,12 @@ class SolicitudController extends Controller {
 
       ////////////PROFESIONAL/////////////////
       $searchModelProf = new ProfesionalSearch();
-      $dataProviderProf = $searchModelProf->search(Yii::$app->request->queryParams,"SOLO_VER_PROFESIONALES_ELEGIBLES");
+      $dataProviderProf = $searchModelProf->search(Yii::$app->request->queryParams,"SOLO_VER_PROFESIONALES_SOLICITANTES");
       $dataProviderProf ->pagination->pageSize = 7;
+      ////////////PROFESIONAL A CARGO/////////////////
+      $searchModelPAC = new ProfesionalSearch();
+      $dataProviderPAC = $searchModelPAC->search(Yii::$app->request->queryParams,"SOLO_VER_PROFESIONALES_A_CARGO");
+      $dataProviderPAC ->pagination->pageSize = 7;
     ////////////DIAGNOSTICO/////////////////
       $searchModelDiag = new DiagnosticoSearch();
       $dataProviderDiag = $searchModelDiag->search(Yii::$app->request->queryParams,false);
@@ -108,6 +112,8 @@ class SolicitudController extends Controller {
               'dataProviderProf' => $dataProviderProf ,
               'searchModelDiag' => $searchModelDiag,
               'dataProviderDiag' => $dataProviderDiag,
+              'searchModelPAC' => $searchModelPAC ,
+              'dataProviderPAC' => $dataProviderPAC ,
           ];
       return $searchModel;
     }

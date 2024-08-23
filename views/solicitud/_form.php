@@ -41,8 +41,9 @@ CrudAsset::register($this);
     <label>Profesional solicitante:<span id='profesional'> </span>
       <button onclick="quitarSeleccion() " title="Busqueda avanzada de profesional" type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target=".bs-profesional-modal-lg" style="margin-left: 10px;"><i class="glyphicon glyphicon-search" ></i></button>
     </label>
-    <input class="form-control" type="text" id="profesionalbuscar" name="ProfesionalSearch[matricula]" placeholder="Ingresar matricula del profesional" >
-    <button id="button_profesional" type="button" class ="btn btn-primary btn-xs" onclick='profesionalba();'>Buscar y añadir</button>
+    <label>Profesional a cargo:<span id='profesional'> </span>
+      <button onclick="quitarSeleccion() " title="Busqueda avanzada de profesional" type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target=".bs-profesionalAC-modal-lg" style="margin-left: 10px;"><i class="glyphicon glyphicon-search" ></i></button>
+    </label>
     </div>
     <?php $form = ActiveForm::begin();
       // $form = ActiveForm::begin(['type'=>ActiveForm::TYPE_VERTICAL, 'formConfig'=>['labelSpan'=>4]]);
@@ -53,11 +54,10 @@ CrudAsset::register($this);
         <label> Paciente </label></br>
         <input id="solicitud-paciente" class="form-control"  style="width:250px;" value='<?=$model_paciente->apellido.", ".$model_paciente->nombre; ?>' type="text" readonly>
         <?=$form->field($model, 'id_paciente')->hiddenInput(['value'=>$model_paciente->id])->label(false); ?>
-        <label> Profesional solictiante</label> </br>
+        <label class="text-primary"> Profesional solictiante</label> </br>
         <input id="solicitud-profesional" class="form-control" style="width:250px;" value='<?=($model->profesional)?$model->profesional->apellido.", ".$model->profesional->nombre:'' ?>' type="text" readonly>
         <?=$form->field($model, 'id_profesional')->hiddenInput()->label(false); ?>
         <?=$form->field($model, 'barrio')->hiddenInput(['value'=>$model_paciente->barrioPrincipal()])->label(false); ?>
-        <?=$form->field($model, 'direccion')->hiddenInput(['value'=>$model_paciente->direccionPrincipal()])->label(false); ?>
 
 <?
       echo $form->field($model, 'id_procedencia')->widget(
@@ -74,13 +74,15 @@ CrudAsset::register($this);
           </div>
           <div class='col-sm-3'>
               <?=$form->field($model, 'id_servicio')->dropDownList($model->servicios())->label('Servicio') ;?>
+              <label class="text-success"> Profesional a cargo</label>
+              <input id="solicitud-profesional-acargo" class="form-control" style="width:250px;" value='<?=($model->profesionalAcargo)?$model->profesionalAcargo->apellido.", ".$model->profesionalAcargo->nombre:'' ?>' type="text" readonly>
+              <?=$form->field($model, 'id_profesional_acargo')->hiddenInput()->label(false); ?>
+              <?=$form->field($model, 'direccion')->hiddenInput(['value'=>$model_paciente->direccionPrincipal()])->label(false); ?>
               <?=$form->field($model, 'id_estado')->dropDownList($model->estados())->label('Estado') ;?>
-             </div>
-             <div class='col-sm-3'>
+         </div>
+         <div class='col-sm-3'>
             <? echo $form->field($model, 'fechasolicitud')->widget(DateControl::classname(), [
-                // 'value'=> ($model->fechasolicitud)?$model->fechasolicitud:"" ,
-                //       ],
-                // 'disabled'=>(isset($model->estado) && ($model->estado->descripcion=="LISTO")),
+
                 'type'=>DateControl::FORMAT_DATE,
                 'autoWidget'=>true,
                 'displayFormat' => 'php:d/m/Y',
@@ -182,75 +184,7 @@ CrudAsset::register($this);
          </div>
 
 
-         <div class="x_content">
-             <div class="modal fade bs-profesional-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-               <div class="modal-dialog modal-lg">
-                 <div class="modal-content">
-                   <div class="modal-body">
-                     <div class="profesional-index">
-                         <div id="ajaxCrudDatatable">
-                           <?=GridView::widget([
-                               'id'=>'crud-profesional',
-                               'dataProvider' => $modelosDat['dataProviderProf'],
-                               'filterModel' => $modelosDat['searchModelProf'],
-                               'pjax'=>true,
-                               'columns' => require(__DIR__.'/_columnsProfesional.php'),
-                               'toolbar'=> [
 
-                               ],
-                               //Adaptacion para moviles
-                               'responsiveWrap' => false,
-                               'panel' => [
-                                   'type' => 'primary',
-                                   'heading'=> false,
-                               ]
-
-                           ])?>
-                         </div>
-                     </div>
-                     <div class="modal-footer">
-                       <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                       <button type="button"  onclick='agregarFormularioMed();' class="btn btn-primary">Agregar al formulario</button>
-                     </div>
-               </div>
-             </div>
-           </div>
-         </div>
-         </div>
-         <div class="x_content">
-           <div class="modal fade bs-diagnostico-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
-             <div class="modal-dialog modal-lg">
-               <div class="modal-content">
-                 <div class="modal-body">
-                    <span id="modal-parametro">.</span>
-                    <div class="diagnostico-index">
-                       <div id="ajaxCrudDatatable">
-                         <?=GridView::widget([
-                             'id'=>'crud-diagnostico',
-                             'dataProvider' => $modelosDat['dataProviderDiag'],
-                             'filterModel' => $modelosDat['searchModelDiag'],
-                             'pjax'=>true,
-                             'columns' => require(__DIR__.'/_columnsDiagnostico.php'),
-                             'toolbar'=> [
-
-                             ],
-                             //Adaptacion para moviles
-                             'responsiveWrap' => false,
-                             'panel' => [
-                                 'type' => 'primary',
-                                 'heading'=> false,
-                             ]
-                         ])?>
-                       </div>
-                   </div>
-                   <div class="modal-footer">
-                     <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                     <button type="button" onclick="agregarFormularioDiag()" class="btn btn-primary">Agregar al formulario</button>  </div>
-             </div>
-           </div>
-         </div>
-         </div>
-         </div>
 
 <?php Modal::begin([
     "id"=>"ajaxCrudModal",
@@ -305,10 +239,16 @@ function profesionalba(){
 ///script agregar y quitar profesional desde la busqueda avanzada
 
 
-function agregarFormularioMed (){
+function agregarFormularioMed ($tipo){
   if ($("tr.success").find("td:eq(1)").text() != ""){
-    document.getElementById("solicitud-profesional").value= $("tr.success").find("td:eq(3)").text() +", "+ $("tr.success").find("td:eq(2)").text() ;
-    document.getElementById("solicitud-id_profesional").value=$("tr.success").find("td:eq(1)").text();
+    if($tipo=="acargo"){
+      document.getElementById("solicitud-profesional-acargo").value= $("tr.success").find("td:eq(3)").text() +", "+ $("tr.success").find("td:eq(2)").text() ;
+      document.getElementById("solicitud-id_profesional_acargo").value=$("tr.success").find("td:eq(1)").text();
+
+    }else {
+      document.getElementById("solicitud-profesional").value= $("tr.success").find("td:eq(3)").text() +", "+ $("tr.success").find("td:eq(2)").text() ;
+      document.getElementById("solicitud-id_profesional").value=$("tr.success").find("td:eq(1)").text();
+    }
     //vacias el contenido de la variable para que no se anexe con otra eleccion de otro campo
     $('button.close.kv-clear-radio').click();
     $('button.btn.btn-default').click();
@@ -394,6 +334,9 @@ $(document).on('click', '.solicitud-eliminar-sol_diagnostico-boton', function ()
        ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']); ?>
    </div>
 <? }
+echo $this->render('modals', [
+    'modelosDat' => $modelosDat,
+]);
     $form = ActiveForm::end();
 ?>
 

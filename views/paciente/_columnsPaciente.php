@@ -20,6 +20,10 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
+        'attribute'=>'hc',
+    ],
+    [
+        'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'numdocumento',
     ],
     [

@@ -1,5 +1,10 @@
+VERSION 1.1.3
+Insercion de un nuevo campo en la tabla solicitud: profesionl a cargo.
+Ademas se incorpora la historia clinica a los filtros del paciente y a la vista de la solicitud
+
+
 VERSION 1.1.2
-Cambio en la consulta del metodo solicitudvigente() del modelo paciente,para devolver solo 
+Cambio en la consulta del metodo solicitudvigente() del modelo paciente,para devolver solo
 las solicitudes que no esten anuladas y que si tienen una internacion asociada, que la misma
 no tenga fecha de egreso.
 

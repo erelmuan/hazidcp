@@ -10,6 +10,7 @@ use yii\helpers\Html;
  * This is the model class for table "solicitud".
  *
  * @property int $id
+ * @property int $id_profesional_acargo
  * @property int $id_paciente
  * @property int $id_procedencia
  * @property int $id_profesional
@@ -23,7 +24,6 @@ use yii\helpers\Html;
  * @property Servicio $servicio
  * @property Profesional $profesional
  * @property Paciente $paciente
- * @property Materialsolicitud $materialsolicitud
  * @property Procedencia $procedencia
  * @property Servicio $servicio
  * @property Reunionfamiliar[] $reunionfamiliars
@@ -31,6 +31,7 @@ use yii\helpers\Html;
  * @property Internacion $internacion
  * @property string $direccion
  * @property string $barrio
+ * @property Profesional $profesionalAcargo
  */
  use app\components\behaviors\AuditoriaBehaviors;
 
@@ -70,7 +71,8 @@ class Solicitud extends \yii\db\ActiveRecord
           [['id_paciente'], 'required',  'message' => 'El campo paciente no puede estar vacío.'],
           [['id_profesional'], 'required',  'message' => 'El campo profesional no puede estar vacío.'],
           [['id_paciente', 'id_procedencia', 'id_profesional',  'fechasolicitud', 'id_servicio', 'id_estado'], 'required'],
-          [['id_paciente', 'id_procedencia', 'id_profesional', 'id_servicio', 'id_estado' ,'num_documento'], 'integer'],
+          [['id_paciente', 'id_procedencia', 'id_profesional', 'id_estado', 'id_servicio', 'id_profesional_acargo'], 'default', 'value' => null],
+          [['id_paciente', 'id_procedencia', 'id_profesional', 'id_servicio', 'id_estado' ,'num_documento','id_profesional_acargo'], 'integer'],
           [['observacion','direccion', 'barrio'], 'string'],
           [['fechasolicitud'], 'safe'],
           [['fechasolicitud'], 'validateFechas'],
@@ -78,6 +80,7 @@ class Solicitud extends \yii\db\ActiveRecord
           [['id_profesional'], 'exist', 'skipOnError' => true, 'targetClass' => Profesional::className(), 'targetAttribute' => ['id_profesional' => 'id']],
           [['id_paciente'], 'exist', 'skipOnError' => true, 'targetClass' => Paciente::className(), 'targetAttribute' => ['id_paciente' => 'id']],
           [['id_procedencia'], 'exist', 'skipOnError' => true, 'targetClass' => Procedencia::className(), 'targetAttribute' => ['id_procedencia' => 'id']],
+          [['id_profesional_acargo'], 'exist', 'skipOnError' => true, 'targetClass' => Profesional::className(), 'targetAttribute' => ['id_profesional_acargo' => 'id']],
           [['id_servicio'], 'exist', 'skipOnError' => true, 'targetClass' => Servicio::className(), 'targetAttribute' => ['id_servicio' => 'id']],
           ];
     }
@@ -114,6 +117,7 @@ class Solicitud extends \yii\db\ActiveRecord
             'id_estado' => 'Estado de la solicitud',
             'direccion' => 'Direccion',
             'barrio' => 'Barrio',
+            'id_profesional_acargo' => 'Id Profesional Acargo',
         ];
     }
     public function attributeColumns()
@@ -157,6 +161,16 @@ class Solicitud extends \yii\db\ActiveRecord
               'label'=>'Profesional solicitante',
               'width' => '170px',
               'value' => 'profesionalurl',
+               'filterInputOptions' => ['class' => 'form-control','placeholder' => 'Ingrese Matricula o apellido'],
+               'format' => 'raw',
+               'contentOptions' => ['style' => 'white-space: nowrap;'],
+          ],
+          [
+              'class'=>'\kartik\grid\DataColumn',
+              'attribute'=>'profesional_acargo',
+              'label'=>'Profesional a cargo',
+              'width' => '170px',
+              'value' => 'profesionalAcargourl',
                'filterInputOptions' => ['class' => 'form-control','placeholder' => 'Ingrese Matricula o apellido'],
                'format' => 'raw',
                'contentOptions' => ['style' => 'white-space: nowrap;'],
@@ -254,14 +268,21 @@ class Solicitud extends \yii\db\ActiveRecord
 
      public function getPacienteurl(){
          return Html::a( $this->paciente->apellido.', '. $this->paciente->nombre ,['paciente/view',"id"=> $this->paciente->id]
-           ,[    'class' => 'text-success','role'=>'modal-remote','title'=>'Datos del paciente','data-toggle'=>'tooltip']
+           ,[    'class' => 'text-danger','role'=>'modal-remote','title'=>'Datos del paciente','data-toggle'=>'tooltip']
           );
        }
      public function getProfesionalurl(){
          return Html::a( $this->profesional->apellido.', '. $this->profesional->nombre,['profesional/view',"id"=> $this->profesional->id]
-           ,[    'class' => 'text-success','role'=>'modal-remote','title'=>'Datos del profesional','data-toggle'=>'tooltip']
+           ,[    'class' => 'text-primary','role'=>'modal-remote','title'=>'Datos del profesional','data-toggle'=>'tooltip']
           );
        }
+       public function getProfesionalAcargourl(){
+           return Html::a( $this->profesionalAcargo->apellido.', '. $this->profesionalAcargo->nombre,['profesional/view',"id"=> $this->profesional->id]
+             ,[    'class' => 'text-success','role'=>'modal-remote','title'=>'Datos del profesional','data-toggle'=>'tooltip']
+            );
+         }
+
+
 
      public function getTipodocs() {
          return ArrayHelper::map(Tipodoc::find()->all(), 'id','documento');
@@ -339,4 +360,9 @@ class Solicitud extends \yii\db\ActiveRecord
      public function getInternacion() {
        return $this->hasOne(Internacion::className(), ['id_solicitud' => 'id']);
      }
+
+     public function getProfesionalAcargo(){
+  	  return $this->hasOne(Profesional::className(), ['id' => 'id_profesional_acargo']);
+     }
+
 }

@@ -1,4 +1,6 @@
 VERSION 1.1.3
+Correccion script version 1.1.3 y vista de solicitud
+VERSION 1.1.3
 Insercion de un nuevo campo en la tabla solicitud: profesionl a cargo.
 Ademas se incorpora la historia clinica a los filtros del paciente y a la vista de la solicitud
 

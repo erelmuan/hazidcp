@@ -84,7 +84,7 @@ use kartik\detail\DetailView;
           [
               'class'=>'\kartik\grid\DataColumn',
               'label'=>'Profesional a cargo',
-              'value' =>  $model->profesionalAcargo->apellido .', '.$model->profesionalAcargo->nombre,
+              'value' =>($model->profesionalAcargo)?$model->profesionalAcargo->apellido .', '.$model->profesionalAcargo->nombre:'(No definido)',
           ],
           [
               'class'=>'\kartik\grid\DataColumn',

@@ -35,7 +35,7 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'value' => function($model) {
-          return $model->profesionalAcargo->apellido .', '.$model->profesionalAcargo->nombre;
+          return ($model->profesionalAcargo)?$model->profesionalAcargo->apellido .', '.$model->profesionalAcargo->nombre:'(No definido)';
         },
          'label'=>'Profesional a cargo',
     ],

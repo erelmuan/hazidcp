@@ -36,10 +36,10 @@ use app\models\PacienteObrasocial;
    <div class="row">
    <div class="form-row mt-4">
      <div class="col-sm-4 pb-3">
-       <?=$form->field($model->paciente, 'nombre')->input("text",['readonly' => $model->paciente->asociadoaInternacion()])->label('Nombre'); ?>
+       <?=$form->field($model->paciente, 'nombre')->textInput(['maxlength' => true,'readonly' => $model->paciente->asociadoaInternacion(),'style'=> 'width:100%; text-transform:uppercase;']); ?>
      </div>
      <div class="col-sm-4 pb-3">
-       <?=$form->field($model->paciente, 'apellido')->input("text",['readonly' => $model->paciente->asociadoaInternacion()])->label('Apellido'); ?>
+       <?=$form->field($model->paciente, 'apellido')->textInput(['maxlength' => true,'readonly' => $model->paciente->asociadoaInternacion(),'style'=> 'width:100%; text-transform:uppercase;']); ?>
      </div>
      <div class="col-sm-1 pb-4">
        <? echo $form->field($model->paciente, 'sexo')->dropDownList(

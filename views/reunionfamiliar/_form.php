@@ -16,7 +16,7 @@ use yii\helpers\Url;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'lugar')->textInput() ?>
+    <?= $form->field($model, 'lugar')->textInput(['style'=> 'width:100%; text-transform:uppercase;','placeholder'=>'ESCRIBA AQUÍ (SE CONVERTIRÁ EN MAYÚSCULAS)']) ?>
     <?= $form->field($model, 'fechahora')->widget(DateControl::classname(), [
         'type' => DateControl::FORMAT_DATETIME,
         'displayFormat' => 'dd/MM/yyyy HH:mm:ss',
@@ -27,9 +27,9 @@ use yii\helpers\Url;
             ],
         ],
     ])->label("Fecha y hora");?>
-    <?= $form->field($model, 'familiares')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'familiares')->textarea(['rows' => 6,'style'=> 'width:100%; text-transform:uppercase;','placeholder'=>'ESCRIBA AQUÍ (SE CONVERTIRÁ EN MAYÚSCULAS)']) ?>
 
-    <?= $form->field($model, 'profesionales')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'profesionales')->textarea(['rows' => 6,'style'=> 'width:100%; text-transform:uppercase;','placeholder'=>'ESCRIBA AQUÍ (SE CONVERTIRÁ EN MAYÚSCULAS)']) ?>
 
     <?= $form->field($model, 'aceptanacompañamiento')->checkBox([
       'class' => 'form-control',

@@ -85,6 +85,13 @@ class Reunionfamiliar extends \yii\db\ActiveRecord
             'fechahora' => 'Fechahora',
         ];
     }
+    public function beforeSave($insert){
+    //DE FORMA INDIVIDUAL
+      $this->lugar = strtoupper($this->lugar);
+      $this->familiares = strtoupper($this->familiares);
+      $this->profesionales = strtoupper($this->profesionales);
+      return parent::beforeSave($insert);
+    }
 
     /**
      * @return \yii\db\ActiveQuery

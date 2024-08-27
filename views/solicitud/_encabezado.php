@@ -46,7 +46,7 @@ use yii\helpers\Html;
                         <td><strong>Médico solicitante:</strong> <?=$model_solicitud->profesional->apellido .', '.$model_solicitud->profesional->nombre ?></td>
                     </tr>
                     <tr>
-                        <td><strong>Especialidad:</strong> <?=$model_solicitud->profesional->especialidad->nombre ?></td>
+                        <td><strong>Especialidad med solicitante:</strong> <?=$model_solicitud->profesional->especialidad->nombre ?></td>
                         <td><strong>Paciente:</strong> <?=Html::a('<i class="glyphicon glyphicon-eye-open"></i>'.' '.$model_solicitud->paciente->apellido .', '.$model_solicitud->paciente->nombre, ['paciente/view' ,'id'=> $model_solicitud->id_paciente],
                         ['role'=>'modal-remote','title'=> 'Ver paciente']); ?></td>
                         <td><strong>Diag. Solicitud:</strong>

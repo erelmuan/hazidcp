@@ -47,7 +47,14 @@ class ReunionfamiliarController extends Controller {
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "Reunionfamiliar #".$id,
+                    'title'=> "Reunion familiar #".$id. Html::a('<i class="fa fa-file-pdf-o "style="color:white;">  Exportar pdf</i>', ['reunionfamiliar/documento', 'id' => $id], [
+                        'class' => 'btn btn-danger pull-right', // btn-danger para hacer todo el botón rojo
+                        'title' => 'Archivo pdf',
+                        'target' => '_blank',
+                        'data-pjax' => '0'
+                    ]) ,
+                    'closeButton' => false,
+
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
@@ -205,6 +212,20 @@ class ReunionfamiliarController extends Controller {
                     'provider' => $dataProviderPRF,
                 ]);
             }
+        }
+    }
+    public function actionDocumento($id) {
+        $request = Yii::$app->request;
+        // Si entra en el if es porque el estudio esta en estado EN_PROCESO
+        //Ver el view de biopsia donde se accde al informe
+        if ($request->isAjax) {
+            Yii::$app
+                ->response->format = Response::FORMAT_JSON;
+            return ['forceReload' => '#crud-datatable-pjax', 'title' => "AVISO!", 'content' => 'EL SIGUIENTE DOCUMENTO TIENE UN ESTADO <b>EN PROCESO</b> (NO ESTA TERMINADO) CONFIRME SI DESEA GENERAR EL DOCUMENTO', 'footer' => Html::button('Cerrar', ['class' => 'btn btn-default pull-left', 'data-dismiss' => "modal"]) . Html::a('<i class="fa glyphicon glyphicon-hand-up"></i> Confirmar', ['/biopsia/informe', 'id' => $id], ['class' => 'btn btn-primary', 'data-toggle' => 'tooltip', 'target' => '_blank', 'title' => 'Se abrirá el archivo PDF generado en una nueva ventana']) ];
+        }
+        else {
+            $solicitud = $this->findModel($id);
+            return $this->render('documento', ['model' => $solicitud ]);
         }
     }
 

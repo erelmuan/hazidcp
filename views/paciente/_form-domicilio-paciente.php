@@ -18,7 +18,9 @@ use kartik\select2\Select2;
        'id' => "domicilio-direccion{$key}",
        'name' => "Domicilios[$key][direccion]",
         'class' =>'form-control'
+        ,'style'=> 'width:100%; text-transform:uppercase;'
      ])->label(false); ?>
+
      </div>
      <div class="col-lg-1">
        <?= $form->field($domicilio, 'id_tipodom')->dropDownList(

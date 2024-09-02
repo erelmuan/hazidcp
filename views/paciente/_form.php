@@ -371,10 +371,10 @@ use app\models\PacienteObrasocial;
      ?>
      <?php if (!Yii::$app->request->isAjax){ ?>
          <div class="form-group">
-             <?= Html::submitButton($model->paciente->isNewRecord ? 'Crear' : 'Actualizar',
-              ['class' => $model->paciente->isNewRecord ? 'btn btn-success' : 'btn btn-primary','value'=>0,'name' => 'registro']) ?>
-             <?= Html::submitButton($model->paciente->isNewRecord ? 'Crear y Cargar Registro' : 'Actualizar y Cargar Registro',
-             ['class' => $model->paciente->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'value'=>1,'name' => 'registro']) ?>
+             <?= Html::submitButton($model->paciente->isNewRecord ? 'Crear' : 'Modificar paciente',
+              ['class' => $model->paciente->isNewRecord ? 'btn btn-primary' : 'btn btn-primary','value'=>0,'name' => 'registro']) ?>
+             <?= Html::submitButton($model->paciente->isNewRecord ? 'Crear y cargar a solicitud' : 'Cargar a solicitud y actulizar',
+             ['class' => $model->paciente->isNewRecord ? 'btn btn-success' : 'btn btn-success', 'value'=>1,'name' => 'registro']) ?>
          </div>
      <?php } ?>
 

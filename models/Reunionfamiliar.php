@@ -22,7 +22,7 @@ use Yii;
 
 class Reunionfamiliar extends \yii\db\ActiveRecord
 {
-
+public $id_plantillareunionfliar;
   public function behaviors()
 {
 

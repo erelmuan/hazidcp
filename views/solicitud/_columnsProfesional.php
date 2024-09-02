@@ -21,7 +21,7 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'num_documento',
+        'attribute'=>'numdocumento',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',

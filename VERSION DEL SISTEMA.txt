@@ -1,3 +1,9 @@
+VERSION 1.1.5
+Correccion de busqueda- boton paciente
+Correccion de la busqueda por dni cambiando el nombre de la variable de num_documento a numdocumento
+Se cambia la descripcion de las opciones al actualizar un paciente y al cargarlo.
+
+
 VERSION 1.1.4
 Exportacion de documento pdf reunion familiar
 Se agrega un boton para poder exportar lo expresado en las reuniones familiares

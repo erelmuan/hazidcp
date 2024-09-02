@@ -19,7 +19,7 @@ class SolicitudSearch extends Solicitud
   public $procedencia;
   public $estado;
   public $servicio;
-  public $num_documento;
+  public $numdocumento;
   public $term; // Agrega el atributo "term" al modelo
   public $id_tipodoc; // Propiedad para paciente.id_tipodoc
   public $fecha_desde;
@@ -35,10 +35,10 @@ class SolicitudSearch extends Solicitud
     {
         return [
             //tiene que estar aqui para que esten los filtros
-            [['id', 'id_paciente',  'id_profesional',  'id_servicio', 'id_estado','id_procedencia','num_documento'], 'integer'],
+            [['id', 'id_paciente',  'id_profesional',  'id_servicio', 'id_estado','id_procedencia','numdocumento'], 'integer'],
             ['fechasolicitud', 'date', 'format' => 'dd/MM/yyyy'],
             [[ 'fecha_desde','fecha_hasta','observacion'], 'safe'],
-            [['paciente','profesional','profesional_acargo','procedencia','servicio','estado' ,'num_documento','direccion', 'barrio'], 'safe'],
+            [['paciente','profesional','profesional_acargo','procedencia','servicio','estado' ,'numdocumento','direccion', 'barrio'], 'safe'],
             [['id_tipodoc'], 'safe'],
 
         ];
@@ -64,8 +64,8 @@ class SolicitudSearch extends Solicitud
 
     public function searchConsulta($params ,$query,$dataProvider){
 
-        // Verificar si solo se proporciona la fecha_desde y no los campos num_documento ni paciente
-        if (!$this->validate() || ((empty(trim($this->num_documento)) && empty($this->paciente))
+        // Verificar si solo se proporciona la fecha_desde y no los campos numdocumento ni paciente
+        if (!$this->validate() || ((empty(trim($this->numdocumento)) && empty($this->paciente))
         && (empty($this->fecha_hasta) && empty($this->fecha_desde)))) {
           $searchModelAttributes = $this->getAttributes();
 
@@ -78,7 +78,7 @@ class SolicitudSearch extends Solicitud
           }
 
         }else {
-          if (!empty(trim($this->num_documento)) || !empty($this->paciente)){
+          if (!empty(trim($this->numdocumento)) || !empty($this->paciente)){
             $query->andFilterWhere(['>=', 'fechasolicitud', $this->fecha_desde]);
             $query->andFilterWhere(['<=', 'fechasolicitud', $this->fecha_hasta]);
           }
@@ -158,11 +158,11 @@ class SolicitudSearch extends Solicitud
           $query->andFilterWhere(['=', 'fechasolicitud', $this->fechasolicitud]);
           $query->andFilterWhere([  'id_procedencia' => $this->id_procedencia,]);
           $query->andFilterWhere([  'id_servicio' => $this->id_servicio,]);
-          $query->andFilterWhere([ "paciente.num_documento" => trim($this->num_documento),]);
+          $query->andFilterWhere([ "paciente.numdocumento" => trim($this->numdocumento),]);
 
           $paciente= trim($this->paciente);
         if (is_numeric($paciente)){
-            $query->andFilterWhere(["paciente.num_documento"=>$paciente]);
+            $query->andFilterWhere(["paciente.numdocumento"=>$paciente]);
              }
         else {
             $apellidonombreP = explode(",", $paciente);
@@ -183,7 +183,7 @@ class SolicitudSearch extends Solicitud
             }
         }
         $query->andFilterWhere(['paciente.id_tipodoc' => $this->id_tipodoc]);
-        $query->andFilterWhere([ "paciente.num_documento" => trim($this->num_documento)]);
+        $query->andFilterWhere([ "paciente.numdocumento" => trim($this->numdocumento)]);
 
         $query->andFilterWhere(['ilike', 'observacion', $this->observacion])
         ->andFilterWhere(['ilike', 'solicitud.direccion', $this->direccion])
@@ -204,7 +204,7 @@ class SolicitudSearch extends Solicitud
     $attributes = parent::getAttributes($names, $except);
     $attributes['fecha_desde'] = $this->fecha_desde;
     $attributes['fecha_hasta'] = $this->fecha_hasta;
-    $attributes['num_documento'] = $this->num_documento;
+    $attributes['numdocumento'] = $this->numdocumento;
     $attributes['paciente'] = $this->paciente;
 
     return $attributes;

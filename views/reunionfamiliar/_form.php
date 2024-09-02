@@ -49,19 +49,19 @@ use yii\helpers\Url;
             class="glyphicon glyphicon-minus"></i></button>
     <?   $mapPlantilla = ArrayHelper::map(Plantillareunionfamiliar::find()->all() , 'id',  'codigo'  );
 
-           echo Chosen::widget([
-               'name' => 'id_plantillareunionfliar',
-               'items' => $mapPlantilla,
-               'allowDeselect' => true,
-               'placeholder' => 'Seleccionar código..',
-               'clientOptions' => [
-                   'search_contains' => true,
-                   'no_results_text'=>"¡Vaya, no se encontró nada!",
-               ],
-               'options' => [
-                     'onchange' => 'onEnviarPlantilla (this.value)',
-                     ],
-           ]);
+      echo $form->field($model, 'id_plantillareunionfliar')->widget(
+      Chosen::className(), [
+       'items' => $mapPlantilla,
+       'placeholder' => 'Seleccionar código...',
+       'clientOptions' => [
+           'search_contains' => true,
+           'no_results_text' => "¡Vaya, no se encontró nada!",
+       ],
+       'options' => [
+           'onchange' => 'onEnviarPlantilla(this.value)',
+       ],
+      ]
+      )->label(false);
              ?>
       </br>
       </br>

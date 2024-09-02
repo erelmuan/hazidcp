@@ -48,7 +48,7 @@ use yii\helpers\Url;
                    ],])->label("Tipo de doc.");
              ?>  </div>
           <div class="col-md-3">
-            <?= $form->field($searchModel, 'num_documento')->textInput(['autocomplete' =>'off', 'placeholder'=>'Ingrese numero (sin puntos)']); ?>
+            <?= $form->field($searchModel, 'numdocumento')->textInput(['autocomplete' =>'off', 'placeholder'=>'Ingrese numero (sin puntos)']); ?>
           </div>
           <div class="col-md-3">
             <?  echo $form->field($searchModel, 'id_servicio')->widget(

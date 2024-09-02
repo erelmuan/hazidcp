@@ -37,7 +37,7 @@ use yii\helpers\Html;
 
 class Solicitud extends \yii\db\ActiveRecord
 {
-  public $num_documento;
+  public $numdocumento;
   public $edad;
 
   public function behaviors()
@@ -72,7 +72,7 @@ class Solicitud extends \yii\db\ActiveRecord
           [['id_profesional'], 'required',  'message' => 'El campo profesional no puede estar vacío.'],
           [['id_paciente', 'id_procedencia', 'id_profesional',  'fechasolicitud', 'id_servicio', 'id_estado'], 'required'],
           [['id_paciente', 'id_procedencia', 'id_profesional', 'id_estado', 'id_servicio', 'id_profesional_acargo'], 'default', 'value' => null],
-          [['id_paciente', 'id_procedencia', 'id_profesional', 'id_servicio', 'id_estado' ,'num_documento','id_profesional_acargo'], 'integer'],
+          [['id_paciente', 'id_procedencia', 'id_profesional', 'id_servicio', 'id_estado' ,'numdocumento','id_profesional_acargo'], 'integer'],
           [['observacion','direccion', 'barrio'], 'string'],
           [['fechasolicitud'], 'safe'],
           [['fechasolicitud'], 'validateFechas'],

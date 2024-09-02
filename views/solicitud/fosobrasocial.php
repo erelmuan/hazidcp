@@ -30,7 +30,7 @@ use yii\helpers\Html;
 <div class="col-sm-4">
   <div class="form-group highlight-addon field-solicitudb-dni">
     <label class="control-label has-star" for="dni">DNI</label>
-      <input class="form-control" size="" id="documento"  value=<?=$solicitud->paciente->num_documento ?> readOnly/>
+      <input class="form-control" size="" id="documento"  value=<?=$solicitud->paciente->numdocumento ?> readOnly/>
       <p class="help-block help-block-error"></p>
   </div>
 </div>

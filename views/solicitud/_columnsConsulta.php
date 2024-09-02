@@ -38,7 +38,7 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'paciente.num_documento',
+        'attribute'=>'paciente.numdocumento',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',

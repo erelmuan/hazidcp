@@ -2,8 +2,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\datecontrol\DateControl;
-use kartik\widgets\TimePicker;
 use nex\chosen\Chosen;
+
+// use kartik\widgets\TimePicker;
 use yii\helpers\ArrayHelper;
 use app\models\Servicio;
 use app\models\Tipoconsulta;

@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Atencion;
+use app\models\Actividad;
 
 /**
- * AtencionSearch represents the model behind the search form about `app\models\Atencion`.
+ * ActividadSearch represents the model behind the search form about `app\models\Actividad`.
  */
-class AtencionSearch extends Atencion
+class ActividadSearch extends Actividad
 {
   public $usuario;
 
@@ -20,19 +20,17 @@ class AtencionSearch extends Atencion
     public function rules()
     {
         return [
-            [['id', 'id_usuario', 'id_tipoconsulta',   'id_servicio'], 'integer'],
+            [['id', 'id_tipoactividad', 'id_usuario'], 'integer'],
             ['fechahora', 'validateDateFormat'],
-            [['fechahora', 'usuario', 'personaasesorada','respuesta' ,'detalles', 'vinculo','paciente'], 'safe'],
+            [['clasificacion','usuario', 'paciente', 'observacion', 'fechahora'], 'safe'],
         ];
     }
-
     public function validateDateFormat($attribute, $params){
        $date = \DateTime::createFromFormat('d/m/Y', $this->$attribute);
        if (!$date || $date->format('d/m/Y') !== $this->$attribute) {
            $this->addError($attribute, 'Formato incorrecto. Ingrese dd/mm/aaaa');
        }
    }
-
     /**
      * @inheritdoc
      */
@@ -51,9 +49,8 @@ class AtencionSearch extends Atencion
      */
     public function search($params)
     {
-        $query = Atencion::find()->innerJoinWith('usuario', true)
+        $query = Actividad::find()->innerJoinWith('usuario', true)
         ->orderBy(['fechahora' => SORT_DESC]); // Ordenar por fechahora de manera descendente
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -68,9 +65,8 @@ class AtencionSearch extends Atencion
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'id_tipoactividad' => $this->id_tipoactividad,
             'id_usuario' => $this->id_usuario,
-            'id_tipoconsulta' => $this->id_tipoconsulta,
-            'id_servicio' => $this->id_servicio,
         ]);
         // Convertir el formato de la fecha a Y-m-d para la consulta
             if (trim($this->fechahora)) {
@@ -79,12 +75,13 @@ class AtencionSearch extends Atencion
                     $query->andFilterWhere(['DATE(fechahora)' => $fechahora->format('Y-m-d')]);
                 }
             }
-        $query->andFilterWhere(['ilike', 'personaasesorada', $this->personaasesorada])
-            ->andFilterWhere(['ilike', 'detalles', $this->detalles])
-            ->andFilterWhere(['ilike', 'vinculo', $this->vinculo])
+
+    $query->andFilterWhere(['clasificacion' => $this->clasificacion ? [$this->clasificacion] : null])
+                ->andFilterWhere(['like', 'paciente', $this->paciente])
             ->andFilterWhere(['ilike', 'usuario', $this->usuario])
-            ->andFilterWhere(['ilike', 'respuesta', $this->respuesta])
-		         ->andFilterWhere(['ilike', 'paciente', $this->paciente]);
+            ->andFilterWhere(['like', 'observacion', $this->observacion])
+
+            ;
 
         return $dataProvider;
     }

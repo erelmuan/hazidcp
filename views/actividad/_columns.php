@@ -2,10 +2,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
-use app\models\Servicio;
-use app\models\Tipoconsulta;
-use app\models\Respuesta;
-
+use app\models\Tipoactividad;
 use kartik\grid\GridView;
 
 return [
@@ -14,54 +11,39 @@ return [
         'class' => 'kartik\grid\SerialColumn',
         'width' => '30px',
     ],
+    // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'id',
+    // ],
 
-
+    [
+        'attribute' => 'clasificacion',
+        'label'=>'Clasificacion',
+        'filter'=> [ 'ASISTENCIAL INDIVIDUAL Y/Ó GRUPAL' => 'ASISTENCIAL INDIVIDUAL Y/Ó GRUPAL',
+       'NO ASISTENCIAL' => 'NO ASISTENCIAL', ],
+        'filterType' => GridView::FILTER_SELECT2,
+        'filterWidgetOptions' => [
+            'options' => ['prompt' => ''],
+            'pluginOptions' => ['allowClear' => true],
+        ],
+    ],
+    [
+        'attribute' => 'id_tipoactividad',
+        'value'=> 'tipoactividad.descripcion',
+        'label'=>'Tipo de actividad',
+        'filter'=>ArrayHelper::map(Tipoactividad::find()->all(), 'id','descripcion'),
+        'filterType' => GridView::FILTER_SELECT2,
+        'filterWidgetOptions' => [
+            'options' => ['prompt' => ''],
+            'pluginOptions' => ['allowClear' => true],
+        ],
+    ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'fechahora',
         'value'=>function($model) {
           return date("d/m/Y H:i:s",strtotime($model->fechahora));
         },
-
-      ],
-
-            [
-                'attribute' => 'id_servicio',
-                'value'=> 'servicio.nombre',
-                'label'=>'Servicio',
-
-                'filter'=>ArrayHelper::map(Servicio::find()->all(), 'id','nombre'),
-                'filterType' => GridView::FILTER_SELECT2,
-                'filterWidgetOptions' => [
-                    'options' => ['prompt' => ''],
-                    'pluginOptions' => ['allowClear' => true],
-                ],
-            ],
-      [
-          'attribute' => 'id_tipoconsulta',
-          'value'=> 'tipoconsulta.descripcion',
-          'label'=>'Tipo de consulta',
-
-          'filter'=>ArrayHelper::map(Tipoconsulta::find()->all(), 'id','descripcion'),
-          'filterType' => GridView::FILTER_SELECT2,
-          'filterWidgetOptions' => [
-              'options' => ['prompt' => ''],
-              'pluginOptions' => ['allowClear' => true],
-          ],
-      ],
-
-      [
-        'class'=>'\kartik\grid\DataColumn',
-          'attribute' => 'respuesta',
-
-      ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'personaasesorada',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'vinculo',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
@@ -69,9 +51,8 @@ return [
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'detalles',
+        'attribute'=>'observacion',
     ],
-
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'usuario',
@@ -135,5 +116,4 @@ return [
             },
           ],
       ],
-
 ];

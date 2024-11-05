@@ -190,7 +190,6 @@ class InternacionController extends Controller{
                 $id_tipoegreso = $parents[0];
                 //obtener todas las localidades por el id de la organismo
                 $Arraydetalles = Detalle::findall(['id_tipoegreso' => $id_tipoegreso]);
-                ArrayHelper::multisort($Arrayareas, ['descripcion'], [SORT_ASC]);
                 $i = 0;
                 $detalles = [];
                 foreach ($Arraydetalles as $key => $value) {

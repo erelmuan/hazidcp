@@ -95,7 +95,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                     "items" => [
                         ["label" => "Procedencias", "url" => ["/procedencia/index"]],
                         ["label" => "Especialidades  ", "url" => ["/especialidad/index"]],
-                        ["label" => "Tipos de consulta", "url" => ["/tipoconsulta/index"]],
+                        ["label" => "Tipos de actividad", "url" => ["/tipoactividad/index"]],
                         ["label" => "Respuestas", "url" => ["/respuesta/index"]],
                         ["label" => "Obras sociales", "url" => ["/obrasocial/index"]],
                         ["label" => "Estados", "url" => ["/estado/index"]],
@@ -107,7 +107,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                 ["label" =>FontAwesome::icon('fa fa-user') . " Prestadores", "url" => ["/prestador/index"]],
                 ["label" =>FontAwesome::icon('fa fa-user-md') . " Profesionales", "url" => ["/profesional/index"]],
                 ["label" => FontAwesome::icon('fa fa-file-text') ." Solicitudes", "url" => ["/solicitud/index"]],
-                ["label" =>FontAwesome::icon('fa fa-comments') . " Atenciones", "url" => ["/atencion/index"]],
+                ["label" =>FontAwesome::icon('fa fa-comments') . " Actividades", "url" => ["/actividad/index"]],
                 [   "label" => Yii::$app->user->identity->usuario,
                   'options' => ['class' => 'btn-primary', ],
                     "icon" => "fa fa-files-o",

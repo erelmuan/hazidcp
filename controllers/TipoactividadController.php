@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Atencion;
-use app\models\AtencionSearch;
+use app\models\Tipoactividad;
+use app\models\TipoactividadSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,18 +12,19 @@ use \yii\web\Response;
 use yii\helpers\Html;
 
 /**
- * AtencionController implements the CRUD actions for Atencion model.
+ * TipoactividadController implements the CRUD actions for Tipoactividad model.
  */
-class AtencionController extends Controller{
+class TipoactividadController extends Controller
+{
   // behaviors heredado class CONTOLLER (accesos seguridad)
 
     /**
-     * Lists all Atencion models.
+     * Lists all Tipoactividad models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new AtencionSearch();
+        $searchModel = new TipoactividadSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -34,7 +35,7 @@ class AtencionController extends Controller{
 
 
     /**
-     * Displays a single Atencion model.
+     * Displays a single Tipoactividad model.
      * @param integer $id
      * @return mixed
      */
@@ -44,11 +45,12 @@ class AtencionController extends Controller{
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "Atencion #".$id,
+                    'title'=> "Tipo de actividad #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
-                    'footer'=> Html::button('Cerrar',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"])
+                    'footer'=> Html::button('Cerrar',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
+                            Html::a('Editar',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
                 ];
         }else{
             return $this->render('view', [
@@ -58,7 +60,7 @@ class AtencionController extends Controller{
     }
 
     /**
-     * Creates a new Atencion model.
+     * Creates a new Tipoactividad model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -66,7 +68,7 @@ class AtencionController extends Controller{
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Atencion();
+        $model = new Tipoactividad();
 
         if($request->isAjax){
             /*
@@ -75,7 +77,7 @@ class AtencionController extends Controller{
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Crear nueva atencion",
+                    'title'=> "Crear nuevo tipo de actividad",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -86,15 +88,15 @@ class AtencionController extends Controller{
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Crear nueva atencion",
-                    'content'=>'<span class="text-success">Éxito al crear atención</span>',
+                    'title'=> "Crear nuevo tipo de actividad",
+                    'content'=>'<span class="text-success">Éxito al crear tipo de actividad</span>',
                     'footer'=> Html::button('Cerrar',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Crear más',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
 
                 ];
             }else{
                 return [
-                    'title'=> "Crear nueva atencion",
+                    'title'=> "Crear nuevo tipo de actividad",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -119,7 +121,7 @@ class AtencionController extends Controller{
     }
 
     /**
-     * Updates an existing Atencion model.
+     * Updates an existing Tipoactividad model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -137,7 +139,7 @@ class AtencionController extends Controller{
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Actualizar Atencion #".$id,
+                    'title'=> "Actualizar Tipo de actividad #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -147,7 +149,7 @@ class AtencionController extends Controller{
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Atencion #".$id,
+                    'title'=> "Tipo de actividad #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -156,7 +158,7 @@ class AtencionController extends Controller{
                 ];
             }else{
                  return [
-                    'title'=> "Actualizar Atencion #".$id,
+                    'title'=> "Actualizar Tipo de actividad #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -178,20 +180,19 @@ class AtencionController extends Controller{
         }
     }
 
-
-  //delete hereda de Controller
+    //delete hereda de Controller
 
 
     /**
-     * Finds the Atencion model based on its primary key value.
+     * Finds the Tipo de actividad model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Atencion the loaded model
+     * @return Tipoactividad the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Atencion::findOne($id)) !== null) {
+        if (($model = Tipoactividad::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

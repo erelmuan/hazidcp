@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Tipoconsulta;
+use app\models\Tipoactividad;
 
 /**
- * TipoconsultaSearch represents the model behind the search form about `app\models\Tipoconsulta`.
+ * TipoactividadSearch represents the model behind the search form about `app\models\Tipoactividad`.
  */
-class TipoconsultaSearch extends Tipoconsulta
+class TipoactividadSearch extends Tipoactividad
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class TipoconsultaSearch extends Tipoconsulta
     {
         return [
             [['id'], 'integer'],
-            [['descripcion', 'detalles'], 'safe'],
+            [['clasificacion', 'descripcion'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class TipoconsultaSearch extends Tipoconsulta
      */
     public function search($params)
     {
-        $query = Tipoconsulta::find();
+        $query = Tipoactividad::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -59,8 +59,8 @@ class TipoconsultaSearch extends Tipoconsulta
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['ilike', 'descripcion', $this->descripcion])
-            ->andFilterWhere(['ilike', 'detalles', $this->detalles]);
+        $query->andFilterWhere(['like', 'clasificacion', $this->clasificacion])
+            ->andFilterWhere(['like', 'descripcion', $this->descripcion]);
 
         return $dataProvider;
     }

@@ -2,13 +2,13 @@
 
 use yii\helpers\Html;
 
-
 /* @var $this yii\web\View */
-/* @var $model app\models\Atencion */
-
+/* @var $model app\models\Actividad */
 ?>
-<div class="atencion-create">
+<div class="actividad-update">
+
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>
+
 </div>

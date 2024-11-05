@@ -27,10 +27,10 @@ use app\models\Servicio;
 use app\models\User;
 use app\models\Registrosesion;
 use app\models\Especialidad;
-use app\models\Atencion;
+use app\models\Actividad;
 use app\models\Prestador;
 use app\models\Tipoacceso;
-use app\models\Tipoconsulta;
+use app\models\Tipoactividad;
 use app\models\Plantillareunionfamiliar;
 use app\models\Detalle;
 
@@ -120,12 +120,12 @@ class SiteController extends Controller {
         $cantidadPacientes = Paciente::find()->count();
         $cantidadProcedencia = Procedencia::find()->count();
         $cantidadProfesionales = Profesional::find()->count();
-        $cantidadAtenciones = Atencion::find()->count();
+        $cantidadActividades = Actividad::find()->count();
         $cantidadPrestadores = Prestador::find()->count();
 
         return $this->render('index', [ 'cantidadSolicitudes' => $cantidadSolicitudes,
         'cantidadPacientes' => $cantidadPacientes,  'cantidadProcedencia' => $cantidadProcedencia,
-        'cantidadProfesionales' => $cantidadProfesionales,'cantidadAtenciones' =>$cantidadAtenciones,
+        'cantidadProfesionales' => $cantidadProfesionales,'cantidadActividades' =>$cantidadActividades,
         'cantidadPrestadores' =>$cantidadPrestadores]);
     }
 
@@ -269,7 +269,7 @@ class SiteController extends Controller {
         $cantidadDetalle = Detalle::find()->count();
         $cantidadServicios = Servicio::find()->count();
         $cantidadSolicitudesAnuladas = Solicitud::find()->where(['=','id_estado',4])->count();
-        $cantidadTipoConsultas = Tipoconsulta::find()->count();
+        $cantidadTipoActividades = Tipoactividad::find()->count();
         $cantidadplantillareunionfamiliares = Plantillareunionfamiliar::find()->count();
 
         $cantidadTipoDomicilios = Tipodom::find()->count();
@@ -295,7 +295,7 @@ class SiteController extends Controller {
          'cantidadEstado' => $cantidadEstado,
          'cantidadServicios' =>$cantidadServicios,
          'cantidadSolicitudesAnuladas' =>$cantidadSolicitudesAnuladas,
-         'cantidadTipoConsultas' => $cantidadTipoConsultas,
+         'cantidadTipoActividades' => $cantidadTipoActividades,
          'cantidadplantillareunionfamiliares' =>$cantidadplantillareunionfamiliares,
          'cantidadTipoDomicilios' =>$cantidadTipoDomicilios,
          'cantidadTipoTelefonos' =>$cantidadTipoTelefonos,

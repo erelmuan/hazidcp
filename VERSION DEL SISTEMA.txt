@@ -1,3 +1,8 @@
+VERSION 1.1.6
+Se intercambia las atenciones por actividades, en el cual esta ultima ya engloba las atenciones
+Ademas tambien se cambio el tipoconsulta por tipoactividad, esto para estar acorde a lo que pide
+salud
+- Se crea un enumerativo_actividad
 VERSION 1.1.5
 Correccion de busqueda- boton paciente
 Correccion de la busqueda por dni cambiando el nombre de la variable de num_documento a numdocumento

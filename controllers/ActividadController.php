@@ -3,28 +3,31 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Tipoconsulta;
-use app\models\TipoconsultaSearch;
+use app\models\Actividad;
+use app\models\ActividadSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
+use app\models\Tipoactividad;
+use yii\helpers\Json;
+
+
 
 /**
- * TipoconsultaController implements the CRUD actions for Tipoconsulta model.
+ * ActividadController implements the CRUD actions for Actividad model.
  */
-class TipoconsultaController extends Controller {
+class ActividadController extends Controller{
   // behaviors heredado class CONTOLLER (accesos seguridad)
 
-
     /**
-     * Lists all Tipoconsulta models.
+     * Lists all Actividad models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new TipoconsultaSearch();
+        $searchModel = new ActividadSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -35,7 +38,7 @@ class TipoconsultaController extends Controller {
 
 
     /**
-     * Displays a single Tipoconsulta model.
+     * Displays a single Actividad model.
      * @param integer $id
      * @return mixed
      */
@@ -45,12 +48,11 @@ class TipoconsultaController extends Controller {
         if($request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
             return [
-                    'title'=> "Tipoconsulta #".$id,
+                    'title'=> "Actividad #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $this->findModel($id),
                     ]),
-                    'footer'=> Html::button('Cerrar',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
-                            Html::a('Editar',['update','id'=>$id],['class'=>'btn btn-primary','role'=>'modal-remote'])
+                    'footer'=> Html::button('Cerrar',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"])
                 ];
         }else{
             return $this->render('view', [
@@ -60,7 +62,7 @@ class TipoconsultaController extends Controller {
     }
 
     /**
-     * Creates a new Tipoconsulta model.
+     * Creates a new Actividad model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -68,7 +70,7 @@ class TipoconsultaController extends Controller {
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new Tipoconsulta();
+        $model = new Actividad();
 
         if($request->isAjax){
             /*
@@ -77,7 +79,7 @@ class TipoconsultaController extends Controller {
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Crear nuevo tipo de consulta",
+                    'title'=> "Crear nueva actividad",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -88,15 +90,15 @@ class TipoconsultaController extends Controller {
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Crear nuevo tipo de consulta",
-                    'content'=>'<span class="text-success">Exito al crear tipo de consulta</span>',
+                    'title'=> "Crear nueva actividad",
+                    'content'=>'<span class="text-success">Éxito al crear atención</span>',
                     'footer'=> Html::button('Cerrar',['class'=>'btn btn-default pull-left','data-dismiss'=>"modal"]).
                             Html::a('Crear más',['create'],['class'=>'btn btn-primary','role'=>'modal-remote'])
 
                 ];
             }else{
                 return [
-                    'title'=> "Crear nuevo tipo de consulta",
+                    'title'=> "Crear nueva actividad",
                     'content'=>$this->renderAjax('create', [
                         'model' => $model,
                     ]),
@@ -121,7 +123,7 @@ class TipoconsultaController extends Controller {
     }
 
     /**
-     * Updates an existing Tipoconsulta model.
+     * Updates an existing Actividad model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -139,7 +141,7 @@ class TipoconsultaController extends Controller {
             Yii::$app->response->format = Response::FORMAT_JSON;
             if($request->isGet){
                 return [
-                    'title'=> "Actualizar tipo de consulta #".$id,
+                    'title'=> "Actualizar Actividad #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -149,7 +151,7 @@ class TipoconsultaController extends Controller {
             }else if($model->load($request->post()) && $model->save()){
                 return [
                     'forceReload'=>'#crud-datatable-pjax',
-                    'title'=> "Tipoconsulta #".$id,
+                    'title'=> "Actividad #".$id,
                     'content'=>$this->renderAjax('view', [
                         'model' => $model,
                     ]),
@@ -158,7 +160,7 @@ class TipoconsultaController extends Controller {
                 ];
             }else{
                  return [
-                    'title'=> "Actualizar tipo de consulta #".$id,
+                    'title'=> "Actualizar Actividad #".$id,
                     'content'=>$this->renderAjax('update', [
                         'model' => $model,
                     ]),
@@ -170,7 +172,7 @@ class TipoconsultaController extends Controller {
             /*
             *   Process for non-ajax request
             */
-            if ($model->load($request->post()) && $model->Guardar()) {
+            if ($model->load($request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
             } else {
                 return $this->render('update', [
@@ -179,20 +181,44 @@ class TipoconsultaController extends Controller {
             }
         }
     }
+    public function actionSubcat() {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $id_tipoegreso = $parents[0];
+                //obtener todas las localidades por el id de la organismo
+                $Arraydetalles = Tipoactividad::findall(['clasificacion' =>  $id_tipoegreso]);
+                $i = 0;
+                $detalles = [];
 
+                foreach ($Arraydetalles as $key => $value) {
+                    $detalles[$i] = array(
+                        'id' => $value['id'],
+                        'name' => $value['descripcion']
+                    );
+                    $i = $i + 1;
+                }
+                $out = [['id' => '<sub-cat-id-1>', 'name' => '<sub-cat-name1>'], ['id' => '<sub-cat_id_2>', 'name' => '<sub-cat-name2>']];
+                return Json::encode(['output' => $detalles]);
+            }
+        }
+        echo Json::encode(['output' => '', 'selected' => '']);
+    }
 
-    //delete hereda de Controller
+  //delete hereda de Controller
+
 
     /**
-     * Finds the Tipoconsulta model based on its primary key value.
+     * Finds the Actividad model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Tipoconsulta the loaded model
+     * @return Actividad the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Tipoconsulta::findOne($id)) !== null) {
+        if (($model = Actividad::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

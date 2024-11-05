@@ -190,14 +190,14 @@ $this->title = 'Extras';
       </div>
     </div>
     </a>
-    <a href=<?=Yii::$app->homeUrl."tipoconsulta"; ?>>
+    <a href=<?=Yii::$app->homeUrl."tipoactividad"; ?>>
     <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
       <div class="tile-stats verde">
           <div class="icon"><i class="fas fa-question-circle"></i>
           </div>
-          <div class="count"><?=$cantidadTipoConsultas?></div>
-          <h3> TIPO DE CONSULTAS</h3>
-          <p>AMB Tipo consultas.</p>
+          <div class="count"><?=$cantidadTipoActividades?></div>
+          <h3> TIPO DE ACTIVIDADES</h3>
+          <p>AMB Tipo actividades.</p>
       </div>
     </div>
     </a>

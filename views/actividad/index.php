@@ -7,21 +7,21 @@ use johnitvn\ajaxcrud\CrudAsset;
 use johnitvn\ajaxcrud\BulkButtonWidget;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\AtencionSearch */
+/* @var $searchModel app\models\ActividadSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Atencions';
+$this->title = 'Actividades';
 $this->params['breadcrumbs'][] = $this->title;
 
 CrudAsset::register($this);
 
 ?>
 <div  class="x_panel">
-  <div class="x_title"><h2><i class="fa fa-table"></i> ATENCIONES  </h2>
+  <div class="x_title"><h2><i class="fa fa-table"></i> ACTIVIDADES  </h2>
     <div class="clearfix"> <div class="nav navbar-right panel_toolbox"><?= Html::a('<i class="glyphicon glyphicon-arrow-left"></i> Atrás', ['/site'], ['class'=>'btn btn-danger grid-button']) ?></div>
-</div> 
+</div>
   </div>
-<div class="atencion-index">
+<div class="Actividad-index">
   <div id="ajaxCrudDatatable">
       <?=GridView::widget([
           'id'=>'crud-datatable',
@@ -43,7 +43,7 @@ CrudAsset::register($this);
           'responsiveWrap' => false,
           'panel' => [
               'type' => 'primary',
-              'heading' => '<i class="glyphicon glyphicon-list"></i> Lista de atenciones',
+              'heading' => '<i class="glyphicon glyphicon-list"></i> Lista de activiades',
               'before'=>'<em>* Para buscar algún registro tipear en el filtro y presionar ENTER o el boton <i class="glyphicon glyphicon-search"></i></em>',
 
                       '<div class="clearfix"></div>',

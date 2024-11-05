@@ -86,14 +86,14 @@ $this->title = 'Inicio';
         </div>
       </div>
       </a>
-      <a href=<?=Yii::$app->homeUrl."atencion/index"; ?>>
+      <a href=<?=Yii::$app->homeUrl."actividad/index"; ?>>
       <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
         <div class="tile-stats">
           <div class="icon"><i class="fa fa-comments" style="color:#a9dfbf ;"></i>
           </div>
-          <div class="count"><?=$cantidadAtenciones ?></div>
-          <h3>ATENCIONES</h3>
-          <p>Información de las atenciones - ABM</p>
+          <div class="count"><?=$cantidadActividades?></div>
+          <h3>ACTIVIDADES</h3>
+          <p>Información de las actividades - ABM</p>
         </div>
       </div>
       </a>

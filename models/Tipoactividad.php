@@ -5,22 +5,22 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "tipoconsulta".
+ * This is the model class for table "tipoactividad".
  *
  * @property int $id
+ * @property string $clasificacion
  * @property string $descripcion
- * @property string $detalles
  *
- * @property Atencion[] $atencions
+ * @property Actividad[] $actividads
  */
-class Tipoconsulta extends \yii\db\ActiveRecord
+class Tipoactividad extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'tipoconsulta';
+        return 'tipoactividad';
     }
 
     /**
@@ -29,9 +29,8 @@ class Tipoconsulta extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['descripcion'], 'required'],
-            [['descripcion'], 'unique'],
-            [['descripcion', 'detalles'], 'string'],
+            [['clasificacion', 'descripcion'], 'required'],
+            [['clasificacion', 'descripcion'], 'string'],
         ];
     }
 
@@ -42,22 +41,21 @@ class Tipoconsulta extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'clasificacion' => 'Clasificacion',
             'descripcion' => 'Descripcion',
-            'detalles' => 'Detalles',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAtencions()
+    public function getActividads()
     {
-        return $this->hasMany(Atencion::className(), ['id_tipoconsulta' => 'id']);
+        return $this->hasMany(Actividad::className(), ['id_tipoactividad' => 'id']);
     }
-    public function asociadoaAtencion(){
+    public function asociadoaActividad(){
       //devuelve un true o false
-      return $this->getAtencions()
+      return $this->getActividads()
        ->exists();
       }
-
 }

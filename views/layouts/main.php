@@ -91,7 +91,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                                         "items" => [
                                             ["label" => "Procedencias", "url" => ["/procedencia/index"]],
                                             ["label" => "Especialidades", "url" => ["/especialidad/index"]],
-                                            ["label" => "Tipos de consultas", "url" => ["/tipoconsulta/index"]],
+                                            ["label" => "Tipos de actividades", "url" => ["/tipoactividad/index"]],
                                             ["label" => "Respuestas", "url" => ["/respuesta/index"]],
                                             ["label" => "Obra social", "url" => ["/obrasocial/index"]],
                                             ["label" => "Estados", "url" => ["/estado/index"]],
@@ -102,7 +102,7 @@ $bundle = yiister\gentelella\assets\Asset::register($this);
                                     ["label" => "Prestadores", "url" => ["/prestador/index"], "icon" => "fa fa-user"],
                                     ["label" => "Profesionales", "url" => ["/profesional/index"], "icon" => "fa fa-user-md"],
                                     ["label" => "Solicitudes", "url" => ["/solicitud/index"], "icon" => "fa fa-file-text-o"],
-                                    ["label" => "Atenciones", "url" => ["/atencion"], "icon" => "fa fa-comments"],
+                                    ["label" => "Actividades", "url" => ["/actividad"], "icon" => "fa fa-comments"],
 
                                 ],
                             ]

@@ -4,16 +4,20 @@ use yii\helpers\Url;
 return [
 
     [
+        'class' => 'kartik\grid\SerialColumn',
+        'width' => '30px',
+    ],
+        // [
+        // 'class'=>'\kartik\grid\DataColumn',
+        // 'attribute'=>'id',
+    // ],
+    [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'id',
+        'attribute'=>'clasificacion',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'descripcion',
-    ],
-    [
-        'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'detalles',
     ],
     [
         'class' => 'kartik\grid\ActionColumn',

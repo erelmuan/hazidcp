@@ -18,8 +18,17 @@ use Yii;
  * @property Tipoactividad $tipoactividad
  * @property Usuario $usuario
  */
+ use app\components\behaviors\AuditoriaBehaviors;
+
 class Actividad extends \yii\db\ActiveRecord
 {
+  public function behaviors() {
+      return array(
+          'AuditoriaBehaviors' => array(
+              'class' => AuditoriaBehaviors::className() ,
+          ) ,
+      );
+  }
     /**
      * {@inheritdoc}
      */

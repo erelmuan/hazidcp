@@ -1,3 +1,5 @@
+VERSION 1.1.7
+Se incorpora auditoria a la actividades y tipo de actividades
 VERSION 1.1.6
 Se intercambia las atenciones por actividades, en el cual esta ultima ya engloba las atenciones
 Ademas tambien se cambio el tipoconsulta por tipoactividad, esto para estar acorde a lo que pide

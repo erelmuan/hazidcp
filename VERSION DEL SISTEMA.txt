@@ -1,3 +1,6 @@
+VERSION 1.1.8
+Incorporacion de diagnostico principal al listado de solicitudes.
+
 VERSION 1.1.7
 Se incorpora auditoria a la actividades y tipo de actividades
 VERSION 1.1.6

@@ -210,6 +210,11 @@ class Solicitud extends \yii\db\ActiveRecord
               'class'=>'\kartik\grid\DataColumn',
               'attribute'=>'barrio',
           ],
+          [
+            'attribute'=>'diagnostico_principal',
+            'label' => 'Diagnostico  principal',
+              'value' => 'diagnosticourl',
+          ],
 
         ];
     }
@@ -281,6 +286,17 @@ class Solicitud extends \yii\db\ActiveRecord
              ,[    'class' => 'text-success','role'=>'modal-remote','title'=>'Datos del profesional','data-toggle'=>'tooltip']
             );
          }
+
+       public function getDiagnosticourl(){
+             $item = "";
+             foreach ($this->solicitudDiagnosticos as $soldiagnostico) {
+                   if($soldiagnostico->principal){
+                     $item .=$soldiagnostico->diagnostico->descripcion;
+                   }
+             }
+             return $item;
+         }
+
 
 
 

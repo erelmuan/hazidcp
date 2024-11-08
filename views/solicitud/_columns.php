@@ -67,6 +67,20 @@ return [
         'attribute'=>'barrio',
     ],
     [
+      'label' => 'Diagnostico  principal',
+        'format'    => 'html',
+        'value'     => function($model)
+        {
+            $item = "";
+            foreach ($model->solicitudDiagnosticos as $soldiagnostico) {
+                  if($soldiagnostico->principal){
+                    $item .=$soldiagnostico->diagnostico->descripcion;
+                  }
+            }
+            return $item;
+        }
+    ],
+    [
         'class' => 'kartik\grid\ActionColumn',
         'dropdown' => false,
         'vAlign'=>'middle',

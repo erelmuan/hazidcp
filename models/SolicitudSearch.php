@@ -25,6 +25,7 @@ class SolicitudSearch extends Solicitud
   public $fecha_desde;
   public $fecha_hasta;
   public $profesional_acargo;
+  public $diagnostico_principal;
 
     /**
      * @inheritdoc
@@ -38,7 +39,7 @@ class SolicitudSearch extends Solicitud
             [['id', 'id_paciente',  'id_profesional',  'id_servicio', 'id_estado','id_procedencia','numdocumento'], 'integer'],
             ['fechasolicitud', 'date', 'format' => 'dd/MM/yyyy'],
             [[ 'fecha_desde','fecha_hasta','observacion'], 'safe'],
-            [['paciente','profesional','profesional_acargo','procedencia','servicio','estado' ,'numdocumento','direccion', 'barrio'], 'safe'],
+            [['paciente','profesional','profesional_acargo','procedencia','servicio','estado' ,'numdocumento','direccion', 'barrio','diagnostico_principal'], 'safe'],
             [['id_tipodoc'], 'safe'],
 
         ];
@@ -117,9 +118,11 @@ class SolicitudSearch extends Solicitud
         ->innerJoinWith('profesional')
         ->innerJoinWith('estado')
         ->innerJoinWith('servicio')
+        ->innerJoin('solicitud_diagnostico', 'solicitud_diagnostico.id_solicitud = solicitud.id')
+        ->innerJoin('diagnostico', 'diagnostico.id = solicitud_diagnostico.id_diagnostico')
         ->innerJoin('prestador', 'prestador.id = profesional.id_prestador')
+         ->andWhere(['and','principal = true' ]);
 
-        ;
         if($busqueda=="anulado"){
         $query->andWhere(['and','id_estado = 4 ' ]);
         }else {
@@ -189,6 +192,7 @@ class SolicitudSearch extends Solicitud
         ->andFilterWhere(['ilike', 'solicitud.direccion', $this->direccion])
         ->andFilterWhere(['ilike', 'barrio', $this->barrio])
         ->andFilterWhere(['ilike', 'estado.descripcion', $this->estado])
+        ->andFilterWhere(['ilike', 'diagnostico.descripcion', $this->diagnostico_principal])
         ->andFilterWhere(['ilike', 'servicio.nombre', $this->servicio])
         ->andFilterWhere(['ilike', 'procedencia.nombre', $this->procedencia]);
         //Si busqueda tiene el valor "consulta" el metodo search es invocado por la funcion actionConsulta del controlador

@@ -103,6 +103,8 @@ $columns[]=
             'columns' => $columns,
             'toolbar'=> [
               ['content'=>
+                  Html::a('<i class="glyphicon glyphicon-bed"></i>', ['configusuariopac/pacienteselect','modelo' => 'app\models\Configusuariopac'],
+                  ['role'=>'modal-remote','title'=> 'Personalizar','class'=>'btn btn-default']).
                   Html::a('<i class="glyphicon glyphicon-th"></i>', ['vista/select','modelo' => 'app\models\Solicitud'],
                   ['role'=>'modal-remote','title'=> 'Personalizar','class'=>'btn btn-default']).
                   Html::a('<i class="glyphicon glyphicon-repeat"></i>', [''],

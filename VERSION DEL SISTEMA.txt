@@ -1,3 +1,8 @@
+VERSION 1.1.9
+filtro en la  solicitud -correciones menores
+Se aplica el filtro de los pacientes internados, sin internacion y los que han sido dado de alta,
+de la grilla de solicitudes.
+Se corrige la vista de las actividades.
 VERSION 1.1.8
 Incorporacion de diagnostico principal al listado de solicitudes.
 

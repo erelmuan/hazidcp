@@ -6,6 +6,9 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Solicitud;
+use app\models\Configusuariopac;
+
+
 use DateTime;
 
 
@@ -112,7 +115,14 @@ class SolicitudSearch extends Solicitud
      */
     public function search($params,$busqueda )
     {
+      $seleccionQuery = Configusuariopac::find()
+        ->select(['pacsininternacion', 'pacinternados', 'pacalta']) // Selección de columnas
+        ->andWhere(['id_usuario' => Yii::$app->user->id])
+        ->asArray()
+        ->one(); // Para un solo registro
 
+        // var_dump(  $seleccionQuery);
+        // exit();
         $query = Solicitud::find()->innerJoinWith('procedencia', true)
         ->innerJoinWith('paciente')
         ->innerJoinWith('profesional')
@@ -121,13 +131,32 @@ class SolicitudSearch extends Solicitud
         ->innerJoin('solicitud_diagnostico', 'solicitud_diagnostico.id_solicitud = solicitud.id')
         ->innerJoin('diagnostico', 'diagnostico.id = solicitud_diagnostico.id_diagnostico')
         ->innerJoin('prestador', 'prestador.id = profesional.id_prestador')
-         ->andWhere(['and','principal = true' ]);
+        ->leftJoin('internacion', 'internacion.id_solicitud = solicitud.id'); // Unir con la tabla `internacion`
+        if ($seleccionQuery['pacalta']) {
+            // Agregar condición para pacientes dados de alta (fechahoraegreso no nula)
+            $query->orWhere(['IS NOT', 'internacion.fechahoraegreso', null]);
+        }
+
+        if ($seleccionQuery['pacinternados']) {
+            // Agregar condición para pacientes internados (fechahoraegreso nula)
+            $query->orWhere(['IS', 'internacion.fechahoraegreso', null]);
+            $query->andWhere(['IS NOT', 'internacion.id_solicitud', null]);
+
+        }
+
+        if ($seleccionQuery['pacsininternacion']) {
+            // Agregar condición para solicitudes sin internación (sin registro en internacion)
+            $query->orWhere(['internacion.id_solicitud' => null]);
+        }
+
 
         if($busqueda=="anulado"){
         $query->andWhere(['and','id_estado = 4 ' ]);
         }else {
           $query->andWhere(['and','id_estado <> 4 ' ]);
         }
+        $query->andWhere(['and','principal = true' ]);
+
         $dataProvider = new ActiveDataProvider([
            'query' => $query,
 

@@ -31,6 +31,7 @@ use Yii;
  * @property Provincia $provincia
  * @property Rol $rol
  * @property Profesional[] $profesionals
+ * @property Configusuariopac[] $configusuariopacs
 
  */
  use yii\filters\AccessControl;
@@ -271,7 +272,13 @@ class Usuario extends \yii\db\ActiveRecord  implements \yii\web\IdentityInterfac
                     ->joinWith('especialidad')
                     ->where(['profesional.id_usuario' => $this->id])
                     ->all(), 'especialidad.nombre','especialidad.nombre');
-
       }
 
+    /**
+    	  * @return \yii\db\ActiveQuery
+     */
+    	 public function getConfigusuariopacs()
+    	  {
+    	      return $this->hasMany(Configusuariopac::className(), ['id_usuario' => 'id']);
+    	 }
 }

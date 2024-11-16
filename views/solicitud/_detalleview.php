@@ -190,31 +190,32 @@ use kartik\detail\DetailView;
                'label' => 'Tipo de INGRESO',
               ],
               [
-                'value' => ($internacion->tipoegreso)?$internacion->tipoegreso->descripcion:'(no definido)',
-                'label' => 'Tipo de EGRESO',
+                'value' => ($internacion->fechahoraingreso)?date("d/m/Y H:i:s",strtotime($internacion->fechahoraingreso)):'(no definido)',
+                  'label'=> 'Fecha y hora de INGRESO',
                ],
-              [
-               'value' => ($internacion->detalle)?$internacion->detalle->descripcion:'(no definido)',
-               'label' => 'Detalle',
-              ],
+               [
+                 'value' => ($internacion->tipointernacion)?$internacion->tipointernacion->descripcion:'No definido',
+                 'label'=> 'Tipo internacion',
+               ],
+
          ],
       ],
 
       [
       'columns' => [
+
             [
-              'value' => ($internacion->tipointernacion)?$internacion->tipointernacion->descripcion:'No definido',
-              'label'=> 'Tipo internacion',
-            ],
-            [
-              'value' => ($internacion->fechahoraingreso)?date("d/m/Y H:i:s",strtotime($internacion->fechahoraingreso)):'(no definido)',
-                'label'=> 'Fecha y hora de INGRESO',
+              'value' => ($internacion->tipoegreso)?$internacion->tipoegreso->descripcion:'(no definido)',
+              'label' => 'Tipo de EGRESO',
              ],
              [
                  'value' => ($internacion->fechahoraegreso)?date("d/m/Y H:i:s",strtotime($internacion->fechahoraegreso)):'(no definido)',
                  'label'=> 'Fecha y hora de EGRESO',
               ],
-
+              [
+               'value' => ($internacion->detalle)?$internacion->detalle->descripcion:'(no definido)',
+               'label' => 'Detalle',
+              ],
             ],
 
       ],

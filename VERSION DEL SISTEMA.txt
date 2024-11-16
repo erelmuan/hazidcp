@@ -1,3 +1,5 @@
+VERSION 1.2.0
+Correcion de filtros en solicitud
 VERSION 1.1.9
 filtro en la  solicitud -correciones menores
 Se aplica el filtro de los pacientes internados, sin internacion y los que han sido dado de alta,

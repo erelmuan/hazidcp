@@ -132,23 +132,24 @@ class SolicitudSearch extends Solicitud
         ->innerJoin('diagnostico', 'diagnostico.id = solicitud_diagnostico.id_diagnostico')
         ->innerJoin('prestador', 'prestador.id = profesional.id_prestador')
         ->leftJoin('internacion', 'internacion.id_solicitud = solicitud.id'); // Unir con la tabla `internacion`
-        if ($seleccionQuery['pacalta']) {
-            // Agregar condición para pacientes dados de alta (fechahoraegreso no nula)
-            $query->orWhere(['IS NOT', 'internacion.fechahoraegreso', null]);
-        }
+        if (!empty($seleccionQuery)) {
+            if ($seleccionQuery['pacalta']) {
+                // Agregar condición para pacientes dados de alta (fechahoraegreso no nula)
+                $query->orWhere(['IS NOT', 'internacion.fechahoraegreso', null]);
+            }
 
-        if ($seleccionQuery['pacinternados']) {
-            // Agregar condición para pacientes internados (fechahoraegreso nula)
-            $query->orWhere(['IS', 'internacion.fechahoraegreso', null]);
-            $query->andWhere(['IS NOT', 'internacion.id_solicitud', null]);
+            if ($seleccionQuery['pacinternados']) {
+                // Agregar condición para pacientes internados (fechahoraegreso nula)
+                $query->orWhere(['IS', 'internacion.fechahoraegreso', null]);
+                $query->andWhere(['IS NOT', 'internacion.id_solicitud', null]);
 
-        }
+            }
 
-        if ($seleccionQuery['pacsininternacion']) {
-            // Agregar condición para solicitudes sin internación (sin registro en internacion)
-            $query->orWhere(['internacion.id_solicitud' => null]);
-        }
-
+            if ($seleccionQuery['pacsininternacion']) {
+                // Agregar condición para solicitudes sin internación (sin registro en internacion)
+                $query->orWhere(['internacion.id_solicitud' => null]);
+            }
+          }
 
         if($busqueda=="anulado"){
         $query->andWhere(['and','id_estado = 4 ' ]);

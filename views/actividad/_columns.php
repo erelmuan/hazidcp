@@ -65,6 +65,7 @@ return [
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'observacion',
+        'width' => '170px',
     ],
     [
         'class'=>'\kartik\grid\DataColumn',

@@ -21,7 +21,13 @@ use yii\helpers\Html;
             'label'=>'Tipo de actividad',
             'value' => $model->tipoactividad ? $model->tipoactividad->descripcion : 'No definido',
             ],
-            'paciente',
+            [
+                'class'=>'\kartik\grid\DataColumn',
+                'attribute'=>'pacienteint',
+                'width' => '170px',
+                'filterInputOptions' => ['class' => 'form-control','placeholder' => 'Nombre del paciente'],
+                'format' => 'raw',
+             ],
             'observacion:ntext',
             [
                 'class'=>'\kartik\grid\DataColumn',

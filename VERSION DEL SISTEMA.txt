@@ -1,4 +1,6 @@
 VERSION 1.2.2
+Modificacion de diagramacion de columna observacion de actividades
+VERSION 1.2.2
 Correccion de vista de actividades
 Se establece el tamaño fijo de la columna de observacion.
 

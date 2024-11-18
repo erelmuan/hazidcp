@@ -48,7 +48,11 @@ use kartik\widgets\DatePicker;
 
     <div class="form-group mb-2">
         <?= Html::submitButton('Buscar', ['class' => 'btn btn-success mr-2']) ?>
-        <?= Html::resetButton('Limpiar', ['class' => 'btn btn-default', 'id' => 'btn-limpiar']) ?>
+        <?= Html::a('<i class="fas fa-sync-alt"></i> Limpiar', ['index'], [
+          'class' => 'btn btn-default',
+          'id' => 'btn-limpiar',
+          'encode' => false, // Para interpretar etiquetas HTML
+      ]) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -1,3 +1,5 @@
+VERSION 1.2.4
+Se refresca la pagina con la opcion limpiar
 VERSION 1.2.3
 Ajuste de tamaño de las fechas en actividades
 

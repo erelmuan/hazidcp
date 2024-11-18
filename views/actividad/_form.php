@@ -57,24 +57,27 @@ use yii\jui\AutoComplete;
      ?>
 
      <div class="input-group">
-         <?= $form->field($model, 'pacienteint', [
-             'template' => '{input}',
-         ])->widget(AutoComplete::classname(), [
-             'clientOptions' => [
-                 'source' => Url::to(['actividad/autocomplete']), // Especifica la URL de la acción para obtener los resultados del autocompletado
-                 'minLength' => 4, // Define la cantidad mínima de caracteres para activar el autocompletado
-                 'select' => new \yii\web\JsExpression('function(event, ui) {
-                     $("#actividad-id_paciente").val(ui.item.id_paciente); // Asignar el id al campo oculto
-                     $("#pacienteint-autocomplete").prop("disabled", true); // Bloquear el input
-                 }'),
-             ],
-             'options' => [
-                 'id' => 'pacienteint-autocomplete', // ID único
-                 'class' => 'form-control',
-                 'autocomplete' => 'off',
-                 'placeholder' => 'Ingrese parte del nombre o apellido del paciente',
-             ],
-         ]) ?>
+       <?= AutoComplete::widget([
+          'clientOptions' => [
+              'source' => Url::to(['actividad/autocomplete']), // URL de los resultados de autocompletado
+              'minLength' => 4, // Mínimos caracteres para activar el autocompletado
+              'select' => new \yii\web\JsExpression('function(event, ui) {
+                  $("#actividad-id_paciente").val(ui.item.id_paciente); // Asignar ID del paciente a campo oculto
+                  $("#actividad-pacienteint").val(ui.item.value); // Asignar el valor del autocompletado
+                  $("#autocomplete-pacienteint").prop("disabled", true); // Bloquear el campo después de selección
+              }'),
+          ],
+          'options' => [
+              'id' => 'autocomplete-pacienteint', // ID único del campo
+              'class' => 'form-control',
+              'autocomplete' => 'off',
+              'placeholder' => 'Ingrese parte del nombre o apellido del paciente',
+          ],
+      ]) ?>
+       <?= $form->field($model, 'pacienteint')->hiddenInput([
+           'id' => 'actividad-pacienteint', // ID único para el campo oculto
+       ])->label(false); ?>
+
          <span class="input-group-btn">
              <button type="button" id="reset-pacienteint" class="btn btn-danger" title="Editar o borrar selección">
                  <i class="glyphicon glyphicon-remove"></i>

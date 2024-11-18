@@ -10,10 +10,12 @@ use Yii;
  * @property int $id
  * @property int $id_tipoactividad
  * @property string $clasificacion
- * @property string $paciente
+ * @property string $pacienteint
  * @property string $observacion
  * @property string $fechahora
  * @property int $id_usuario
+ * @property int $id_paciente
+ * @property Paciente $paciente
  *
  * @property Tipoactividad $tipoactividad
  * @property Usuario $usuario
@@ -44,11 +46,12 @@ class Actividad extends \yii\db\ActiveRecord
     {
         return [
             [['id_tipoactividad', 'clasificacion', 'fechahora' ,'id_usuario'], 'required'],
-            [['id_tipoactividad', 'id_usuario'], 'default', 'value' => null],
-            [['id_tipoactividad', 'id_usuario'], 'integer'],
-            [['clasificacion', 'paciente', 'observacion'], 'string'],
+            [['id_tipoactividad', 'id_usuario', 'id_paciente'], 'default', 'value' => null],
+            [['id_tipoactividad', 'id_usuario', 'id_paciente'], 'integer'],
+            [['clasificacion', 'pacienteint', 'observacion'], 'string'],
             [['fechahora'], 'safe'],
             [['id_tipoactividad'], 'exist', 'skipOnError' => true, 'targetClass' => Tipoactividad::className(), 'targetAttribute' => ['id_tipoactividad' => 'id']],
+ 		           [['id_paciente'], 'exist', 'skipOnError' => true, 'targetClass' => Paciente::className(), 'targetAttribute' => ['id_paciente' => 'id']],
             [['id_usuario'], 'exist', 'skipOnError' => true, 'targetClass' => Usuario::className(), 'targetAttribute' => ['id_usuario' => 'id']],
         ];
     }
@@ -62,10 +65,11 @@ class Actividad extends \yii\db\ActiveRecord
             'id' => 'ID',
             'id_tipoactividad' => 'Tipo de actividad',
             'clasificacion' => 'Clasificacion',
-            'paciente' => 'Paciente',
+            'pacienteint' => 'Paciente',
             'observacion' => 'Observacion',
             'fechahora' => 'Fecha/hora',
             'id_usuario' => 'Id Usuario',
+             'id_paciente' => 'Id Paciente',
         ];
     }
 
@@ -83,5 +87,12 @@ class Actividad extends \yii\db\ActiveRecord
     public function getUsuario()
     {
         return $this->hasOne(Usuario::className(), ['id' => 'id_usuario']);
+    }
+    /**
+   * @return \yii\db\ActiveQuery
+   */
+    public function getPaciente()
+    {
+        return $this->hasOne(Paciente::className(), ['id' => 'id_paciente']);
     }
 }

@@ -6,6 +6,8 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Actividad;
+use app\models\Solicitud;
+
 
 /**
  * ActividadSearch represents the model behind the search form about `app\models\Actividad`.
@@ -13,16 +15,18 @@ use app\models\Actividad;
 class ActividadSearch extends Actividad
 {
   public $usuario;
-
+  public $term; // Agrega el atributo "term" al modelo
+  public $fecha_desde;
+  public $fecha_hasta;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'id_tipoactividad', 'id_usuario'], 'integer'],
+            [['id', 'id_tipoactividad', 'id_usuario', 'id_paciente'], 'integer'],
             ['fechahora', 'validateDateFormat'],
-            [['clasificacion','usuario', 'paciente', 'observacion', 'fechahora'], 'safe'],
+            [['clasificacion','usuario', 'pacienteint', 'observacion', 'fechahora','fecha_desde','fecha_hasta'], 'safe'],
         ];
     }
     public function validateDateFormat($attribute, $params){
@@ -67,6 +71,7 @@ class ActividadSearch extends Actividad
             'id' => $this->id,
             'id_tipoactividad' => $this->id_tipoactividad,
             'id_usuario' => $this->id_usuario,
+            'id_paciente' => $this->id_paciente,
         ]);
         // Convertir el formato de la fecha a Y-m-d para la consulta
             if (trim($this->fechahora)) {
@@ -77,12 +82,28 @@ class ActividadSearch extends Actividad
             }
 
     $query->andFilterWhere(['clasificacion' => $this->clasificacion ? [$this->clasificacion] : null])
-                ->andFilterWhere(['like', 'paciente', $this->paciente])
-            ->andFilterWhere(['ilike', 'usuario', $this->usuario])
-            ->andFilterWhere(['like', 'observacion', $this->observacion])
-
-            ;
+                ->andFilterWhere(['ilike', 'pacienteint', $this->pacienteint])
+                ->andFilterWhere(['ilike', 'usuario', $this->usuario])
+                ->andFilterWhere(['like', 'observacion', $this->observacion]) ;
+                $query->andFilterWhere(['>=', 'fechahora', $this->fecha_desde]);
+                $query->andFilterWhere(['<', 'fechahora', $this->fecha_hasta]);
 
         return $dataProvider;
+    }
+
+    public function searchAutocomplete()
+    {
+        // Implementa aquí la lógica de búsqueda específica para el autocompletado
+        // Puede ser una consulta a la base de datos, búsqueda en un servicio externo, etc.
+        // Devuelve los resultados como un arreglo de objetos o modelos
+            $results = Solicitud::find()
+                ->innerJoinWith('paciente', true)
+                ->andFilterWhere(['ilike', new \yii\db\Expression("CONCAT(paciente.nombre, ' ', paciente.apellido)"), trim($this->term)])
+                ->orFilterWhere(['ilike', new \yii\db\Expression("CONCAT(paciente.apellido , ' ',paciente.nombre )"), trim($this->term)])
+                ->select('DISTINCT ON (paciente.id) solicitud.*')
+                ->orderBy('paciente.id, solicitud.id') // Ordenar según sea necesario
+                ->limit(15)
+                ->all();
+        return $results;
     }
 }

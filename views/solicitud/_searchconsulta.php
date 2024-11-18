@@ -86,7 +86,6 @@ use yii\helpers\Url;
                     'source' => Url::to(['solicitud/autocomplete']), // Especifica la URL de la acción para obtener los resultados del autocompletado
                     'minLength' => 4, // Define la cantidad mínima de caracteres para activar el autocompletado
                 ],
-
                 'options' => [
                     'class' => 'form-control',
                     'autocomplete' => 'off',

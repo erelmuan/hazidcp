@@ -250,7 +250,7 @@ public function searchAutocomplete()
     // Implementa aquí la lógica de búsqueda específica para el autocompletado
     // Puede ser una consulta a la base de datos, búsqueda en un servicio externo, etc.
     // Devuelve los resultados como un arreglo de objetos o modelos
-        $results = Solicitud::find()
+        $results = Actividad::find()
             ->innerJoinWith('paciente', true)
             ->andFilterWhere(['ilike', new \yii\db\Expression("CONCAT(paciente.nombre, ' ', paciente.apellido)"), trim($this->term)])
             ->orFilterWhere(['ilike', new \yii\db\Expression("CONCAT(paciente.apellido , ' ',paciente.nombre )"), trim($this->term)])

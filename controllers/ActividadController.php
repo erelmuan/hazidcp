@@ -206,6 +206,25 @@ class ActividadController extends Controller{
         echo Json::encode(['output' => '', 'selected' => '']);
     }
 
+    public function actionAutocomplete()
+    {
+        $searchModel = new ActividadSearch();
+        $searchModel->term = Yii::$app->request->get('term'); // Acceder al valor enviado
+        $searchModel->load(Yii::$app->request->queryParams);
+        // Realiza la búsqueda en la base de datos para obtener los resultados del autocompletado
+        $results = $searchModel->searchAutocomplete();
+        $data = [];
+        foreach ($results as $result) {
+            // Define la estructura de datos que se enviará como respuesta en formato JSON
+            $data[] = [
+                'value' => $result->paciente->apellido.' ,'.$result->paciente->nombre, // Valor que se mostrará en el campo de autocompletado
+                'id_paciente' => $result->paciente->id, // ID asociado al valor seleccionado (opcional)
+            ];
+        }
+        // Devuelve los resultados en formato JSON
+        return Json::encode($data);
+    }
+
   //delete hereda de Controller
 
 

@@ -7,8 +7,7 @@ use yii\helpers\Url;
 use nex\chosen\Chosen;
 use app\models\Tipoactividad;
 use kartik\datecontrol\DateControl;
-
-
+use yii\jui\AutoComplete;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Actividad */
@@ -57,7 +56,36 @@ use kartik\datecontrol\DateControl;
      ])->label('Tipo de actividad');
      ?>
 
-    <?= $form->field($model, 'paciente')->textInput() ?>
+     <div class="input-group">
+         <?= $form->field($model, 'pacienteint', [
+             'template' => '{input}',
+         ])->widget(AutoComplete::classname(), [
+             'clientOptions' => [
+                 'source' => Url::to(['actividad/autocomplete']), // Especifica la URL de la acción para obtener los resultados del autocompletado
+                 'minLength' => 4, // Define la cantidad mínima de caracteres para activar el autocompletado
+                 'select' => new \yii\web\JsExpression('function(event, ui) {
+                     $("#actividad-id_paciente").val(ui.item.id_paciente); // Asignar el id al campo oculto
+                     $("#pacienteint-autocomplete").prop("disabled", true); // Bloquear el input
+                 }'),
+             ],
+             'options' => [
+                 'id' => 'pacienteint-autocomplete', // ID único
+                 'class' => 'form-control',
+                 'autocomplete' => 'off',
+                 'placeholder' => 'Ingrese parte del nombre o apellido del paciente',
+             ],
+         ]) ?>
+         <span class="input-group-btn">
+             <button type="button" id="reset-pacienteint" class="btn btn-danger" title="Editar o borrar selección">
+                 <i class="glyphicon glyphicon-remove"></i>
+             </button>
+         </span>
+     </div>
+
+     <?= $form->field($model, 'id_paciente')->hiddenInput([
+         'id' => 'actividad-id_paciente', // ID único para el campo oculto
+     ])->label(false); ?>
+
 
     <?= $form->field($model, 'observacion')->textarea(['rows' => 6]) ?>
 
@@ -73,3 +101,19 @@ use kartik\datecontrol\DateControl;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php
+$this->registerCss("
+    .ui-autocomplete {
+        z-index: 1051;
+    }
+");
+$this->registerJs("
+    $('#reset-pacienteint').on('click', function() {
+        // Borrar el valor del input y desbloquearlo
+        $('#pacienteint-autocomplete').val('').prop('disabled', false);
+        // Borrar el valor del campo oculto
+        $('#actividad-id_paciente').val('');
+    });
+", \yii\web\View::POS_READY);
+?>

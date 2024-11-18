@@ -26,6 +26,7 @@ use app\models\Domicilio;
  * @property Solicitud[] $solicituds
  * @property Telefono[] $telefonos
  * @property Atencion[] $atencions
+ * @property Actividad[] $actividads
  */
  use app\components\behaviors\AuditoriaBehaviors;
 
@@ -205,7 +206,13 @@ class Paciente extends \yii\db\ActiveRecord
             return false;
         }
     }
-
+    /**
+       * @return \yii\db\ActiveQuery
+       */
+      public function getActividads()
+      {
+          return $this->hasMany(Actividad::className(), ['id_paciente' => 'id']);
+      }
     public function asociadoaInternacion()
     {
       //devuelve un true o false

@@ -1,3 +1,7 @@
+VERSION 1.2.1
+Se agrega la busqueda predictiva de paciente en actividad, vinculandolo con el paciente, atraves de una clave foranea.
+tambien un buscador por fechas.
+
 VERSION 1.2.0
 Correcion de filtros en solicitud
 VERSION 1.1.9

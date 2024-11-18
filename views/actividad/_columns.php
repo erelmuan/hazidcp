@@ -45,10 +45,23 @@ return [
           return date("d/m/Y H:i:s",strtotime($model->fechahora));
         },
     ],
+
     [
         'class'=>'\kartik\grid\DataColumn',
-        'attribute'=>'paciente',
-    ],
+        'attribute'=>'pacienteint',
+        'width' => '170px',
+        'value' => function($model) {
+          if($model->paciente){
+             return Html::a( $model->pacienteint, ['paciente/view',"id"=> $model->paciente->id]
+               ,[    'class' => 'text-success','role'=>'modal-remote','title'=>'Datos del usuario','data-toggle'=>'tooltip']
+             );  }else {
+               return $model->pacienteint;
+             }
+        }
+        ,
+        'filterInputOptions' => ['class' => 'form-control','placeholder' => 'Nombre del paciente'],
+        'format' => 'raw',
+     ],
     [
         'class'=>'\kartik\grid\DataColumn',
         'attribute'=>'observacion',

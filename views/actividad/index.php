@@ -51,15 +51,17 @@ $export = ExportMenu::widget([
 ]);
 
 ?>
-<div class="col-xs-3">
- <? echo Collapse::widget([
-    'items' => [
-        [
-            'label' => 'Buscar por rango de fecha',
-            'content' => $this->render('_search', ['model' => $searchModel]) ,
+<div class="col-xs-12 col-sm-6 col-md-4">
+    <?php
+    echo Collapse::widget([
+        'items' => [
+            [
+                'label' => 'Buscar por rango de fecha',
+                'content' => $this->render('_search', ['model' => $searchModel]),
+            ],
         ],
-    ]
-]);?>
+    ]);
+    ?>
 </div>
 <div  class="x_panel">
   <div class="x_title"><h2><i class="fa fa-table"></i> ACTIVIDADES  </h2>

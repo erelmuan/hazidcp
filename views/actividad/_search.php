@@ -1,4 +1,3 @@
-
 <?php
 
 use yii\helpers\Html;
@@ -16,37 +15,46 @@ use kartik\widgets\DatePicker;
         'action' => ['index'],
         'method' => 'get',
         'options' => [
-            'data-pjax' => 1
+            'data-pjax' => 1,
+            'class' => 'form-inline flex-wrap justify-content-between', // Clase para diseño responsivo
         ],
     ]); ?>
 
-    <?
-    echo $form->field($model, 'fecha_desde')->widget(DatePicker::classname(), [
-        'options' => ['placeholder' => ''],
-        'pluginOptions' => [
-            'id' => 'fecha1',
-            'autoclose'=>true,
-            'format' => 'dd/mm/yyyy',
-            'startView' => 'year',
-        ]
-    ]);
+    <div class="form-group mb-2">
+        <?= $form->field($model, 'fecha_desde', [
+            'options' => ['class' => 'mr-2'],
+        ])->widget(DatePicker::classname(), [
+            'options' => ['placeholder' => 'Desde'],
+            'pluginOptions' => [
+                'autoclose' => true,
+                'format' => 'dd/mm/yyyy',
+                'startView' => 'year',
+            ]
+        ])->label(false) ?>
+    </div>
 
-    echo $form->field($model, 'fecha_hasta')->widget(DatePicker::classname(), [
-        'options' => ['placeholder' => ''],
-        'pluginOptions' => [
-            'id' => 'fecha1',
-            'autoclose'=>true,
-            'format' => 'dd/mm/yyyy',
-            'startView' => 'year',
-        ]
-    ]);
+    <div class="form-group mb-2">
+        <?= $form->field($model, 'fecha_hasta', [
+            'options' => ['class' => 'mr-2'],
+        ])->widget(DatePicker::classname(), [
+            'options' => ['placeholder' => 'Hasta'],
+            'pluginOptions' => [
+                'autoclose' => true,
+                'format' => 'dd/mm/yyyy',
+                'startView' => 'year',
+            ]
+        ])->label(false) ?>
+    </div>
 
-    ?>
-        <?= Html::submitButton('Buscar', ['class' => 'btn btn-success']) ?>
-        <?= Html::resetButton('Limpiar', ['class' => 'btn btn-default','id'=>'btn-limpiar']) ?>
+    <div class="form-group mb-2">
+        <?= Html::submitButton('Buscar', ['class' => 'btn btn-success mr-2']) ?>
+        <?= Html::resetButton('Limpiar', ['class' => 'btn btn-default', 'id' => 'btn-limpiar']) ?>
+    </div>
+
     <?php ActiveForm::end(); ?>
 
 </div>
+
 <script>
   document.getElementById("btn-limpiar").addEventListener("click", function() {
       document.getElementById("actividadsearch-fecha_desde").value = "";

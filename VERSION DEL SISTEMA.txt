@@ -1,3 +1,6 @@
+VERSION 1.2.3
+Ajuste de tamaño de las fechas en actividades
+
 VERSION 1.2.2
 Modificacion de diagramacion de columna observacion de actividades
 VERSION 1.2.2

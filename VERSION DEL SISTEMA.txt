@@ -1,3 +1,5 @@
+VERSION 1.2.7
+Otra vez se corrige el campo pacienteint, se agrega el atributo readOnly cuando es seleccionado
 VERSION 1.2.6
 Correccion de del campo pacienteint de actividades
 VERSION 1.2.5

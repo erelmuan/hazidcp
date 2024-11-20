@@ -66,6 +66,7 @@ use yii\jui\AutoComplete;
                'select' => new \yii\web\JsExpression('function(event, ui) {
                    $("#actividad-pacienteint").val(ui.item.value); // Asignar valor al campo
                    $("#actividad-id_paciente").val(ui.item.id_paciente); // Asignar ID del paciente a campo oculto
+                   $("#autocomplete-pacienteint").prop("readOnly", true); // Bloquear el campo para edición después de selección
                }'),
            ],
            'options' => [

@@ -75,6 +75,7 @@ use yii\jui\AutoComplete;
                'autocomplete' => 'off',
                'placeholder' => 'Ingrese parte del nombre o apellido del paciente',
                'name' => 'Actividad[pacienteint]', // Define el atributo name
+                  'onfocus' => 'checkInputValue(this)',
            ],
        ]) ?>
 
@@ -111,12 +112,20 @@ $this->registerCss("
         z-index: 1051;
     }
 ");
+
 $this->registerJs("
     $('#reset-pacienteint').on('click', function() {
         // Borrar el valor del input y desbloquearlo
-        $('#pacienteint-autocomplete').val('').prop('disabled', false);
+        $('#autocomplete-pacienteint').val('').prop('readOnly', false);
         // Borrar el valor del campo oculto
         $('#actividad-id_paciente').val('');
     });
 ", \yii\web\View::POS_READY);
 ?>
+<script>
+function checkInputValue(input) {
+    if ($(input).val() !== '') {
+        $(input).prop('readOnly', true); // Bloquear si tiene valor
+    }
+}
+</script>

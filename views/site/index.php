@@ -2,6 +2,7 @@
 
 <?php
 use kartik\icons\Icon;
+use app\models\User;
 Icon::map($this, Icon::WHHG);
 
 // Maps the Elusive icon font framework/* @var $this yii\web\View */
@@ -97,19 +98,20 @@ $this->title = 'Inicio';
         </div>
       </div>
       </a>
+      <? if(User::isUserAdmin()) {?>
+         <a href=<?=Yii::$app->homeUrl."site/administracion"; ?>>
+          <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+            <div class="tile-stats">
+              <div class="icon"><i class="fa fa-wrench" style="color:#2c3e50 ;"></i>
+              </div>
+              <div class="count">3</div>
 
-     <a href=<?=Yii::$app->homeUrl."site/administracion"; ?>>
-      <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-        <div class="tile-stats">
-          <div class="icon"><i class="fa fa-wrench" style="color:#2c3e50 ;"></i>
+              <h3>ADMINISTRACION</h3>
+              <p>Usuarios-Roles-Modulos-Acciones- ABM.</p>
+            </div>
           </div>
-          <div class="count">3</div>
-
-          <h3>ADMINISTRACION</h3>
-          <p>Usuarios-Roles-Modulos-Acciones- ABM.</p>
-        </div>
-      </div>
-    </a>
+        </a>
+      <? } ?>
 
     </div>
   </div>

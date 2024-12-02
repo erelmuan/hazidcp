@@ -107,7 +107,7 @@ CrudAsset::register($this);
                 ['content'=>
                     Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create', 'id_internacion'=>
                     ($model_solicitud->internacion)?$model_solicitud->internacion->id  :0,'enfermeria'=>1, 'id_solicitud'=>$model_solicitud->id],
-                    ['title'=> 'Crear evolución enfermeria','class' => 'btn btn-success']).
+                    ['title'=> 'Crear evolución enfermeria','class' => 'btn btn-success disabled','disabled'=>true]).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index','id_solicitud'=>$model_solicitud->id],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Refrescar'])
                 ],
@@ -141,7 +141,7 @@ CrudAsset::register($this);
                 ['content'=>
                     Html::a('<i class="glyphicon glyphicon-plus"></i>', ['create', 'id_internacion'=>
                     ($model_solicitud->internacion)?$model_solicitud->internacion->id  :0,'enfermeria'=>0, 'id_solicitud'=>$model_solicitud->id],
-                    ['title'=> 'Crear evolución o indicación','class'=>'btn btn-primary']).
+                    ['title'=> 'Crear evolución o indicación','class'=>'btn btn-primary disabled' , 'disabled'=>true]).
                     Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index','id_solicitud'=>$model_solicitud->id],
                     ['data-pjax'=>1, 'class'=>'btn btn-default', 'title'=>'Refrescar'])
                 ],

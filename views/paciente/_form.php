@@ -382,7 +382,7 @@ use app\models\PacienteObrasocial;
 
    <script>
         //Crear la clave para el domicilio
-        var domicilio_k = <?php echo isset($key) ? str_replace('nuevo', '', $key) : 0; ?>;
+        var domicilio_k = <?php echo isset($key) ? str_replace('nuevo', '', $key) : 1; ?>;
         //Al hacer click en el boton de nuevo domicilio aumentar en uno la clave
         // y agregar un formulario de domicilio reemplazando la clave __id__ por la nueva clave
         $('#paciente-nuevo-domicilio-boton').on('click', function () {

@@ -15,11 +15,16 @@ use kartik\select2\Select2;
    <div class="row domicilio">
      <div class="col-lg-2">
        <?= $form->field($domicilio, 'direccion')->textInput([
-       'id' => "domicilio-direccion{$key}",
-       'name' => "Domicilios[$key][direccion]",
-        'class' =>'form-control'
-        ,'style'=> 'width:100%; text-transform:uppercase;'
-     ])->label(false); ?>
+           'id' => "domicilio-direccion{$key}",
+           'name' => "Domicilios[$key][direccion]",
+           'class' => 'form-control',
+           'style' => 'width:100%; text-transform:uppercase;',
+           'placeholder' => 'Escribe una dirección...',
+           'oninput' => "autocompleteAddress(this, '{$key}')"
+       ])->label(false); ?>
+
+       <ul id="suggestions-<?= $key ?>" class="suggestions-list" style="position: absolute; z-index: 1000; background: #fff; list-style: none; padding: 0; width: 100%;"></ul>
+
 
      </div>
      <div class="col-lg-1">
@@ -123,3 +128,107 @@ use kartik\select2\Select2;
             ]) ?>
     	</div>
     </div>
+
+    <script>
+    function autocompleteAddress(input, key) {
+    const query = input.value;
+    const suggestionsId = "suggestions-" + key;
+
+    // Evitar consultas si el campo está vacío
+    if (query.length < 3) {
+      document.getElementById(suggestionsId).innerHTML = '';
+      return;
+    }
+
+    // Llamada a Photon API (o cualquier servicio)
+    fetch(`https://photon.komoot.io/api/?q=${encodeURIComponent(query + ' ' + "Viedma")}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data && data.features && data.features.length > 0) {
+          // Filtrar los resultados para que solo muestren los que son de Argentina y de la provincia de Río Negro
+          const suggestions = data.features
+            .filter(feature => feature.properties.state === "Río Negro") // Filtrar por país y provincia
+            .map(feature => feature.properties);
+          displaySuggestions(suggestions, suggestionsId, input, key);
+        } else {
+          // Si no hay resultados, se puede mostrar un mensaje informativo
+          displaySuggestions([], suggestionsId, input, key);
+        }
+      })
+      .catch(error => console.error("Error:", error));
+  }
+
+  function displaySuggestions(suggestions, suggestionsId, input, key) {
+    const suggestionsList = document.getElementById(suggestionsId);
+    suggestionsList.innerHTML = ''; // Limpiar sugerencias previas
+
+    if (suggestions.length === 0) {
+      // Mensaje cuando no hay sugerencias
+      const li = document.createElement('li');
+      li.textContent = 'No se encontraron resultados';
+      li.style.padding = '5px';
+      suggestionsList.appendChild(li);
+    } else {
+      suggestions.forEach(suggestion => {
+        const li = document.createElement('li');
+        li.textContent = suggestion.street + ' ' + suggestion.housenumber + ', ' + suggestion.district + ', ' + suggestion.city;
+        li.style.padding = '5px';
+        li.style.cursor = 'pointer';
+        li.onclick = () => {
+          input.value = suggestion.street + ' ' + suggestion.housenumber;
+          suggestionsList.innerHTML = ''; // Limpiar lista
+
+          // Aquí seleccionamos el barrio en el dropdown que coincide con el barrio de la sugerencia
+          const barrioDropdown = document.getElementById("domicilio-barrio" + key);
+          if (barrioDropdown) {
+            const barrios = Array.from(barrioDropdown.options);
+            const matchingOption = findBestMatch(barrios, suggestion.district);
+
+            if (matchingOption) {
+              barrioDropdown.value = matchingOption.value; // Seleccionar la opción correspondiente
+            }
+          }
+        };
+        suggestionsList.appendChild(li);
+      });
+    }
+  }
+
+  function findBestMatch(options, district) {
+    district = normalizeString(district); // Normalizar texto del barrio de la API
+    let bestMatch = null;
+    let bestScore = 0;
+
+    options.forEach(option => {
+      const optionText = normalizeString(option.text);
+      const score = calculateSimilarity(optionText, district);
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestMatch = option;
+      }
+    });
+
+    return bestScore >= 0.2 ? bestMatch : null; // Umbral de similitud
+  }
+
+  // Normalizar cadenas para hacerlas comparables (remover acentos, pasar a minúsculas)
+  function normalizeString(str) {
+    return str
+      .normalize("NFD") // Descomponer caracteres Unicode
+      .replace(/[\u0300-\u036f]/g, "") // Eliminar diacríticos (acentos)
+      .toLowerCase();
+  }
+
+  // Calcular similitud entre dos cadenas (coeficiente de Jaccard)
+  function calculateSimilarity(str1, str2) {
+    const set1 = new Set(str1.split(" "));
+    const set2 = new Set(str2.split(" "));
+
+    const intersection = [...set1].filter(x => set2.has(x));
+    const union = new Set([...set1, ...set2]);
+
+    return intersection.length / union.size; // Similitud Jaccard
+  }
+
+    </script>

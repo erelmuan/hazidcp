@@ -1,3 +1,6 @@
+VERSION 1.2.9
+Se incopora la busqueda de domicilio automatizada autocompletado de barrio.
+
 VERSION 1.2.8
 Bloqueo de boton para cargar evoluciones diarias.
 Cambio en el icono de solicitudes, para ver las opciones de ver las internaciones

@@ -11,6 +11,39 @@ use kartik\date\DatePicker;
 use kartik\datecontrol\DateControl;
 use kartik\select2\Select2;
 ?>
+<style>
+.suggestions-list {
+  position: absolute;
+  z-index: 1000;
+  background: #f9f9f9; /* Fondo claro */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  border: 1px solid #ddd; /* Borde elegante */
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.suggestions-list li {
+  padding: 10px;
+  cursor: pointer;
+  font-family: 'Arial', sans-serif; /* Fuente elegante */
+  font-size: 14px; /* Tamaño de fuente */
+  color: #333; /* Color del texto */
+  border-bottom: 1px solid #eee; /* Línea divisoria */
+  transition: background 0.2s, color 0.2s; /* Efecto suave al pasar el ratón */
+}
+
+.suggestions-list li:last-child {
+  border-bottom: none; /* Sin línea divisoria para el último elemento */
+}
+
+.suggestions-list li:hover {
+  background: #007bff; /* Fondo azul al pasar el ratón */
+  color: #fff; /* Texto blanco */
+}
+</style>
 
    <div class="row domicilio">
      <div class="col-lg-2">

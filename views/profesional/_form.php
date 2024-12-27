@@ -10,7 +10,7 @@ use yii\bootstrap\Modal;
 <div  class="x_panel">
 
    <div class="x_title">
-       <h2> <?=$model->isNewRecord ? "<i class='glyphicon glyphicon-plus'></i> NUEVO PROFESIONAL" : "<i class='glyphicon glyphicon-pencil'></i> ACTUALIZAR PACIENTE" ; ?>
+       <h2> <?=$model->isNewRecord ? "<i class='glyphicon glyphicon-plus'></i> NUEVO PROFESIONAL" : "<i class='glyphicon glyphicon-pencil'></i> ACTUALIZAR PRESTADOR" ; ?>
        </h2>
        <div class="clearfix">
            <div class="nav navbar-right panel_toolbox">
